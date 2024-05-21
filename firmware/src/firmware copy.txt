@@ -1,0 +1,140 @@
+#include <micro_ros_platformio.h>
+#include "bno055_interface.h"
+#include <stdio.h>
+#include <Arduino.h>
+#include <SPI.h>
+
+
+#include <rcl/rcl.h>
+#include <rcl/error_handling.h>
+#include <rclc/rclc.h>
+#include <rclc/executor.h>
+
+#include <std_msgs/msg/int32.h>
+
+#include <micro_ros_platformio.h>
+#include "bno055_interface.h"
+
+#define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){error_loop();}}
+#define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){}}
+
+// Micro-ROS objects
+rclc_support_t support;
+rcl_allocator_t allocator;
+rcl_node_t node;
+rcl_timer_t timer;
+rclc_executor_t executor;
+
+// ROS publishers
+rcl_publisher_t imu_publisher;
+rcl_publisher_t mag_publisher;
+
+// ROS messages
+sensor_msgs__msg__Imu imu_msg;
+sensor_msgs__msg__MagneticField mag_msg;
+
+// BNO055 interface
+BNO055Interface bno055;
+
+void error_loop() {
+  while(1) {
+    delay(100);
+  }
+}
+
+void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
+  RCLC_UNUSED(last_call_time);
+  if (timer != NULL) {
+
+   Serial.begin(9600);
+    // Update BNO055 data
+    bno055.update();
+
+    // Get IMU data
+    imu_msg = bno055.getIMUData();
+
+    ///*
+    // Print IMU data to the serial console
+    Serial.print("Orientation: ");
+    Serial.print(imu_msg.orientation.x);
+    Serial.print(", ");
+    Serial.print(imu_msg.orientation.y);
+    Serial.print(", ");
+    Serial.print(imu_msg.orientation.z);
+    Serial.print(", ");
+    Serial.println(imu_msg.orientation.w);
+    //*/
+
+
+    // Publish IMU data
+    RCSOFTCHECK(rcl_publish(&imu_publisher, &imu_msg, NULL));
+
+    // Get magnetic field data
+    mag_msg = bno055.getMagneticFieldData();
+
+    
+    ///*
+    // Print magnetic field data to the serial console
+    Serial.print("Magnetic Field: ");
+    Serial.print(mag_msg.magnetic_field.x);
+    Serial.print(", ");
+    Serial.print(mag_msg.magnetic_field.y);
+    Serial.print(", ");
+    Serial.println(mag_msg.magnetic_field.z);
+    //*/
+
+
+    // Publish magnetic field data
+    RCSOFTCHECK(rcl_publish(&mag_publisher, &mag_msg, NULL));
+  }
+}
+
+void createEntities() {
+  // Create ROS publishers
+  RCCHECK(rclc_publisher_init_default(
+    &imu_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu),
+    "imu/data"));
+
+  RCCHECK(rclc_publisher_init_default(
+    &mag_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, MagneticField),
+    "imu/mag"));
+}
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(9600);
+
+  // Initialize micro-ROS serial transport
+  set_microros_serial_transports(Serial);
+
+  // Initialize BNO055
+  bno055.init();
+
+  // Create ROS node
+  allocator = rcl_get_default_allocator();
+  RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+  RCCHECK(rclc_node_init_default(&node, "bno055_node", "", &support));
+
+  // Create ROS entities
+  createEntities();
+
+  // Create ROS timer
+  const unsigned int timer_timeout = 100;
+  RCCHECK(rclc_timer_init_default(
+    &timer,
+    &support,
+    RCL_MS_TO_NS(timer_timeout),
+    timer_callback));
+
+  // Create ROS executor
+  RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
+  RCCHECK(rclc_executor_add_timer(&executor, &timer));
+}
+
+void loop() {
+  RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(10)));
+}

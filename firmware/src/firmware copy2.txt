@@ -1,0 +1,262 @@
+#include <micro_ros_platformio.h>
+#include <stdio.h>
+#include <Arduino.h>
+#include <SPI.h>
+
+
+#include <rcl/rcl.h>
+#include <rcl/error_handling.h>
+#include <rclc/rclc.h>
+#include <rclc/executor.h>
+
+#include <std_msgs/msg/int32.h>
+
+
+#include <Adafruit_BNO055.h>
+#include <sensor_msgs/msg/imu.h>
+#include <sensor_msgs/msg/magnetic_field.h>
+
+#define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){error_loop();}}
+#define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){}}
+#define EXECUTE_EVERY_N_MS(MS, X)  do { \
+  static volatile int64_t init = -1; \
+  if (init == -1) { init = uxr_millis();} \
+  if (uxr_millis() - init > MS) { X; init = uxr_millis();} \
+} while (0)
+
+// BNO055Interface class definition
+class BNO055Interface {
+public:
+  BNO055Interface(uint8_t address = BNO055_ADDRESS_A);
+  void init();
+  void update();
+  sensor_msgs__msg__Imu getIMUData();
+  sensor_msgs__msg__MagneticField getMagneticFieldData();
+
+private:
+  Adafruit_BNO055 bno;
+  sensors_event_t linearAccel;
+  sensors_event_t angVelocity;
+  sensors_event_t magneticField;
+  imu::Quaternion quat;
+};
+
+// BNO055Interface class implementation
+BNO055Interface::BNO055Interface(uint8_t address) : bno(55, address, &Wire) {}
+
+void BNO055Interface::init() {
+  if (!bno.begin()) {
+    // Error handling code
+  }
+  delay(1000);
+}
+
+void BNO055Interface::update() {
+  bno.getEvent(&linearAccel, Adafruit_BNO055::VECTOR_LINEARACCEL);
+  bno.getEvent(&angVelocity, Adafruit_BNO055::VECTOR_GYROSCOPE);
+  quat = bno.getQuat();
+  bno.getEvent(&magneticField, Adafruit_BNO055::VECTOR_MAGNETOMETER);
+}
+
+sensor_msgs__msg__Imu BNO055Interface::getIMUData() {
+  sensor_msgs__msg__Imu imu_msg;
+
+  imu_msg.orientation.x = quat.x();
+  imu_msg.orientation.y = quat.y();
+  imu_msg.orientation.z = quat.z();
+  imu_msg.orientation.w = quat.w();
+
+  imu_msg.angular_velocity.x = angVelocity.gyro.x;
+  imu_msg.angular_velocity.y = angVelocity.gyro.y;
+  imu_msg.angular_velocity.z = angVelocity.gyro.z;
+
+  imu_msg.linear_acceleration.x = linearAccel.acceleration.x;
+  imu_msg.linear_acceleration.y = linearAccel.acceleration.y;
+  imu_msg.linear_acceleration.z = linearAccel.acceleration.z;
+
+  return imu_msg;
+}
+
+sensor_msgs__msg__MagneticField BNO055Interface::getMagneticFieldData() {
+  sensor_msgs__msg__MagneticField mag_msg;
+
+  mag_msg.magnetic_field.x = magneticField.magnetic.x;
+  mag_msg.magnetic_field.y = magneticField.magnetic.y;
+  mag_msg.magnetic_field.z = magneticField.magnetic.z;
+
+  return mag_msg;
+}
+
+// Micro-ROS objects
+rclc_support_t support;
+rcl_allocator_t allocator;
+rcl_node_t node;
+rcl_timer_t timer;
+rclc_executor_t executor;
+
+// ROS publishers
+rcl_publisher_t imu_publisher;
+rcl_publisher_t mag_publisher;
+
+// ROS messages
+sensor_msgs__msg__Imu imu_msg;
+sensor_msgs__msg__MagneticField mag_msg;
+
+// BNO055 interface
+BNO055Interface bno055;
+
+enum states 
+{
+  WAITING_AGENT,
+  AGENT_AVAILABLE,
+  AGENT_CONNECTED,
+  AGENT_DISCONNECTED
+} state;
+
+void error_loop() {
+  while(1) {
+    delay(100);
+  }
+}
+
+void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
+  RCLC_UNUSED(last_call_time);
+  if (timer != NULL) {
+    // Update BNO055 data
+    bno055.update();
+
+    // Get IMU data
+    imu_msg = bno055.getIMUData();
+    
+    // Set the frame_id and timestamp for IMU message
+    strcpy(imu_msg.header.frame_id.data, "imu_link");
+    imu_msg.header.frame_id.size = strlen("imu_link");
+    imu_msg.header.stamp.sec = RCL_NS_TO_S(rmw_uros_epoch_nanos());
+    imu_msg.header.stamp.nanosec = rmw_uros_epoch_nanos() % (1000 * 1000 * 1000);
+    
+    // Publish IMU data
+    RCSOFTCHECK(rcl_publish(&imu_publisher, &imu_msg, NULL));
+
+    // Get magnetic field data
+    mag_msg = bno055.getMagneticFieldData();
+    
+    // Set the frame_id and timestamp for magnetic field message
+    strcpy(mag_msg.header.frame_id.data, "imu_link");
+    mag_msg.header.frame_id.size = strlen("imu_link");
+    mag_msg.header.stamp.sec = RCL_NS_TO_S(rmw_uros_epoch_nanos());
+    mag_msg.header.stamp.nanosec = rmw_uros_epoch_nanos() % (1000 * 1000 * 1000);
+    
+    // Publish magnetic field data
+    RCSOFTCHECK(rcl_publish(&mag_publisher, &mag_msg, NULL));
+  }
+}
+
+bool createEntities() {
+  allocator = rcl_get_default_allocator();
+  RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+  RCCHECK(rclc_node_init_default(&node, "bno055_node", "", &support));
+
+  // Create ROS publishers
+  RCCHECK(rclc_publisher_init_default(
+    &imu_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu),
+    "imu/data"));
+
+  RCCHECK(rclc_publisher_init_default(
+    &mag_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, MagneticField),
+    "imu/mag"));
+
+  // Create ROS timer
+  const unsigned int timer_timeout = 10;
+  RCCHECK(rclc_timer_init_default(
+    &timer,
+    &support,
+    RCL_MS_TO_NS(timer_timeout),
+    timer_callback));
+
+  // Create executor
+  RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
+  RCCHECK(rclc_executor_add_timer(&executor, &timer));
+
+  // Synchronize time with the agent
+  syncTime();
+
+  return true;
+}
+
+void destroyEntities() {
+  rmw_context_t * rmw_context = rcl_context_get_rmw_context(&support.context);
+  (void) rmw_uros_set_context_entity_destroy_session_timeout(rmw_context, 0);
+
+  rcl_ret_t ret = rcl_publisher_fini(&imu_publisher, &node);
+  if (ret != RCL_RET_OK) {
+    // Handle error
+  }
+
+  ret = rcl_publisher_fini(&mag_publisher, &node);
+  if (ret != RCL_RET_OK) {
+    // Handle error
+  }
+
+  ret = rcl_node_fini(&node);
+  if (ret != RCL_RET_OK) {
+    // Handle error
+  }
+
+  ret = rcl_timer_fini(&timer);
+  if (ret != RCL_RET_OK) {
+    // Handle error
+  }
+
+  rclc_executor_fini(&executor);
+  rclc_support_fini(&support);
+}
+
+void syncTime() {
+  RCCHECK(rmw_uros_sync_session(10));
+}
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(115200);
+
+  // Initialize micro-ROS serial transport
+  set_microros_serial_transports(Serial);
+
+  // Initialize BNO055
+  bno055.init();
+
+  state = WAITING_AGENT;
+}
+
+void loop() {
+  switch (state) 
+  {
+    case WAITING_AGENT:
+      EXECUTE_EVERY_N_MS(500, state = (RMW_RET_OK == rmw_uros_ping_agent(100, 1)) ? AGENT_AVAILABLE : WAITING_AGENT;);
+      break;
+    case AGENT_AVAILABLE:
+      if (createEntities()) {
+        state = AGENT_CONNECTED;
+      } else {
+        destroyEntities();
+        state = WAITING_AGENT;
+      }
+      break;
+    case AGENT_CONNECTED:
+      EXECUTE_EVERY_N_MS(200, state = (RMW_RET_OK == rmw_uros_ping_agent(100, 1)) ? AGENT_CONNECTED : AGENT_DISCONNECTED;);
+      if (state == AGENT_CONNECTED) {
+        rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100));
+      }
+      break;
+    case AGENT_DISCONNECTED:
+      destroyEntities();
+      state = WAITING_AGENT;
+      break;
+    default:
+      break;
+  }
+}

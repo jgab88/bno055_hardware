@@ -1,0 +1,8 @@
+{
+  "package_name": "micro_ros_msgs",
+  "non_idl_tuples": [
+    "/home/jg/bno055_hardware/micro_ros_agent/src/uros/micro_ros_msgs:msg/Graph.msg",
+    "/home/jg/bno055_hardware/micro_ros_agent/src/uros/micro_ros_msgs:msg/Node.msg",
+    "/home/jg/bno055_hardware/micro_ros_agent/src/uros/micro_ros_msgs:msg/Entity.msg"
+  ]
+}
