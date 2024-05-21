@@ -1,30 +1,35 @@
 #include <micro_ros_platformio.h>
 #include <Wire.h>
-
 #include <stdio.h>
 #include <rcl/rcl.h>
 #include <rcl/error_handling.h>
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include <rmw_microros/rmw_microros.h>
-
-#include <std_msgs/msg/int32.h>
+#include <sensor_msgs/msg/imu.h>
+#include <sensor_msgs/msg/magnetic_field.h>
+#include <Adafruit_BNO055.h>
+#include <SPI.h>
 
 #define LED_PIN 13
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){return false;}}
-#define EXECUTE_EVERY_N_MS(MS, X)  do { \
+#define EXECUTE_EVERY_N_MS(MS, X) do { \
   static volatile int64_t init = -1; \
   if (init == -1) { init = uxr_millis();} \
   if (uxr_millis() - init > MS) { X; init = uxr_millis();} \
-} while (0)\
+} while (0)
 
 rclc_support_t support;
 rcl_node_t node;
 rcl_timer_t timer;
 rclc_executor_t executor;
 rcl_allocator_t allocator;
-rcl_publisher_t publisher;
-std_msgs__msg__Int32 msg;
+rcl_publisher_t imu_publisher;
+rcl_publisher_t mag_publisher;
+sensor_msgs__msg__Imu imu_msg;
+sensor_msgs__msg__MagneticField mag_msg;
+Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
+
 bool micro_ros_init_successful;
 
 enum states {
@@ -36,48 +41,66 @@ enum states {
 
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
-  (void) last_call_time;
   if (timer != NULL) {
-    rcl_publish(&publisher, &msg, NULL);
-    msg.data++;
+    // Get IMU data
+    imu::Quaternion quat = bno.getQuat();
+    imu_msg.orientation.x = quat.x();
+    imu_msg.orientation.y = quat.y();
+    imu_msg.orientation.z = quat.z();
+    imu_msg.orientation.w = quat.w();
+
+    imu::Vector<3> ang_vel = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
+    imu_msg.angular_velocity.x = ang_vel.x();
+    imu_msg.angular_velocity.y = ang_vel.y();
+    imu_msg.angular_velocity.z = ang_vel.z();
+
+    imu::Vector<3> lin_accel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
+    imu_msg.linear_acceleration.x = lin_accel.x();
+    imu_msg.linear_acceleration.y = lin_accel.y();
+    imu_msg.linear_acceleration.z = lin_accel.z();
+
+    // Get magnetic field data
+    imu::Vector<3> mag = bno.getVector(Adafruit_BNO055::VECTOR_MAGNETOMETER);
+    mag_msg.magnetic_field.x = mag.x();
+    mag_msg.magnetic_field.y = mag.y();
+    mag_msg.magnetic_field.z = mag.z();
+
+    // Publish IMU and magnetic field data
+    rcl_publish(&imu_publisher, &imu_msg, NULL);
+    rcl_publish(&mag_publisher, &mag_msg, NULL);
   }
 }
-
-// Functions create_entities and destroy_entities can take several seconds.
-// In order to reduce this rebuild the library with
-// - RMW_UXRCE_ENTITY_CREATION_DESTROY_TIMEOUT=0
-// - UCLIENT_MAX_SESSION_CONNECTION_ATTEMPTS=3
 
 bool create_entities()
 {
   allocator = rcl_get_default_allocator();
-
   // create init_options
   RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
-
   // create node
-  RCCHECK(rclc_node_init_default(&node, "int32_publisher_rclc", "", &support));
-
-  // create publisher
+  RCCHECK(rclc_node_init_default(&node, "bno055_publisher", "", &support));
+  // create IMU publisher
   RCCHECK(rclc_publisher_init_best_effort(
-    &publisher,
+    &imu_publisher,
     &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-    "std_msgs_msg_Int32"));
-
-  // create timer,
-  const unsigned int timer_timeout = 1000;
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu),
+    "imu/data"));
+  // create magnetic field publisher
+  RCCHECK(rclc_publisher_init_best_effort(
+    &mag_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, MagneticField),
+    "imu/mag"));
+  // create timer
+  const unsigned int timer_timeout = 100;
   RCCHECK(rclc_timer_init_default(
     &timer,
     &support,
     RCL_MS_TO_NS(timer_timeout),
     timer_callback));
-
   // create executor
   executor = rclc_executor_get_zero_initialized_executor();
   RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
   RCCHECK(rclc_executor_add_timer(&executor, &timer));
-
   return true;
 }
 
@@ -85,26 +108,34 @@ void destroy_entities()
 {
   rmw_context_t * rmw_context = rcl_context_get_rmw_context(&support.context);
   (void) rmw_uros_set_context_entity_destroy_session_timeout(rmw_context, 0);
-
-  rcl_publisher_fini(&publisher, &node);
+  rcl_publisher_fini(&imu_publisher, &node);
+  rcl_publisher_fini(&mag_publisher, &node);
   rcl_timer_fini(&timer);
   rclc_executor_fini(&executor);
   rcl_node_fini(&node);
   rclc_support_fini(&support);
 }
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   set_microros_serial_transports(Serial);
   pinMode(LED_PIN, OUTPUT);
-
   state = WAITING_AGENT;
 
-  msg.data = 0;
+  // Initialize BNO055
+  if (!bno.begin())
+  {
+    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    while (1);
+  }
+  delay(1000);
 }
 
-void loop() {
-  switch (state) {
+void loop()
+{
+  switch (state)
+  {
     case WAITING_AGENT:
       EXECUTE_EVERY_N_MS(500, state = (RMW_RET_OK == rmw_uros_ping_agent(100, 1)) ? AGENT_AVAILABLE : WAITING_AGENT;);
       break;
@@ -112,7 +143,7 @@ void loop() {
       state = (true == create_entities()) ? AGENT_CONNECTED : WAITING_AGENT;
       if (state == WAITING_AGENT) {
         destroy_entities();
-      };
+      }
       break;
     case AGENT_CONNECTED:
       EXECUTE_EVERY_N_MS(200, state = (RMW_RET_OK == rmw_uros_ping_agent(100, 1)) ? AGENT_CONNECTED : AGENT_DISCONNECTED;);
