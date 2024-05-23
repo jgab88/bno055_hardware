@@ -27,6 +27,7 @@ _colcon_prefix_chain_powershell_source_script "/home/jg/pointcloud_ws/install\lo
 _colcon_prefix_chain_powershell_source_script "/home/jg/turtlebot3_ws/install\local_setup.ps1"
 _colcon_prefix_chain_powershell_source_script "/home/jg/sam_bot_description/install\local_setup.ps1"
 _colcon_prefix_chain_powershell_source_script "/home/jg/linorobot2_ws/install\local_setup.ps1"
+_colcon_prefix_chain_powershell_source_script "/home/jg/bno055_hardware/install\local_setup.ps1"
 
 # source this prefix
 $env:COLCON_CURRENT_PREFIX=(Split-Path $PSCommandPath -Parent)
