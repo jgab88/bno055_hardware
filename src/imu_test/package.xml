@@ -3,13 +3,17 @@
 <package format="3">
   <name>imu_test</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="jerry.gabrie@gmail.com">jg</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Package for visualizing IMU data in 3D</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>Apache License 2.0</license>
 
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
   <depend>tf2_ros</depend>
+  <depend>geometry_msgs</depend>
+  <depend>urdf</depend>
+  <depend>xacro</depend>
+  <depend>gazebo_ros</depend>
   <depend>rviz2</depend>
 
   <test_depend>ament_copyright</test_depend>

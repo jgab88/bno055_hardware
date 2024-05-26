@@ -1,1 +1,1 @@
-rclpy:rviz2:sensor_msgs:tf2_ros
+gazebo_ros:geometry_msgs:rclpy:rviz2:sensor_msgs:tf2_ros:urdf:xacro

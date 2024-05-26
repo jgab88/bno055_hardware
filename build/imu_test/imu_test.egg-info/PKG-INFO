@@ -1,11 +1,11 @@
 Metadata-Version: 2.1
 Name: imu-test
 Version: 0.0.0
-Summary: TODO: Package description
+Summary: Package for visualizing IMU data in 3D
 Home-page: UNKNOWN
-Maintainer: jg
-Maintainer-email: jerry.gabrie@gmail.com
-License: TODO: License declaration
+Maintainer: Your Name
+Maintainer-email: your_email@example.com
+License: Apache License 2.0
 Platform: UNKNOWN
 
 UNKNOWN
