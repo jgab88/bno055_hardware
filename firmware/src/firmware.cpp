@@ -10,6 +10,8 @@
 #include <sensor_msgs/msg/magnetic_field.h>
 #include <Adafruit_BNO055.h>
 #include <SPI.h>
+#include <Arduino.h>
+#include <string.h>
 
 #define LED_PIN 13
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){return false;}}
@@ -65,9 +67,40 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
     mag_msg.magnetic_field.y = mag.y();
     mag_msg.magnetic_field.z = mag.z();
 
+    // Add timestamps and frame_id 
+    imu_msg.header.stamp.sec = micros() / 1000000;
+    imu_msg.header.stamp.nanosec = (micros() % 1000000) * 1000;
+
+    const char imu_frame_id[] = "imu_link";
+
+    strncpy(imu_msg.header.frame_id.data, imu_frame_id, imu_msg.header.frame_id.capacity);
+    imu_msg.header.frame_id.data[imu_msg.header.frame_id.capacity - 1] = '\0'; // Ensure null termination
+
+    mag_msg.header.stamp.sec = micros() / 1000000;
+    mag_msg.header.stamp.nanosec = (micros() % 1000000) * 1000;
+
+    const char mag_frame_id[] = "imu_link";
+
+    strncpy(mag_msg.header.frame_id.data, mag_frame_id, mag_msg.header.frame_id.capacity);
+    mag_msg.header.frame_id.data[mag_msg.header.frame_id.capacity - 1] = '\0'; // Ensure null termination
+
+    delay(100);
+
+    rcl_ret_t rc;
+    rc = rcl_publish(&imu_publisher, &imu_msg, NULL);
+    if (rc != RCL_RET_OK) {
+        Serial.printf("Error publishing IMU data: %d\n", rc);
+    }
+
+    rc = rcl_publish(&mag_publisher, &mag_msg, NULL);
+    if (rc != RCL_RET_OK) {
+       Serial.printf("Error publishing magnetometer data: %d\n", rc);
+    }
+
+    
     // Publish IMU and magnetic field data
-    rcl_publish(&imu_publisher, &imu_msg, NULL);
-    rcl_publish(&mag_publisher, &mag_msg, NULL);
+    //rcl_publish(&imu_publisher, &imu_msg, NULL);
+    //rcl_publish(&mag_publisher, &mag_msg, NULL);
   }
 }
 
@@ -75,28 +108,59 @@ bool create_entities()
 {
   allocator = rcl_get_default_allocator();
   // create init_options
-  RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+  rcl_ret_t rc = rclc_support_init(&support, 0, NULL, &allocator);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error initializing RCL support: %d\n", rc);
+    return false;
+  }
+  
   // create node
-  RCCHECK(rclc_node_init_default(&node, "bno055_publisher", "", &support));
+  rc = rclc_node_init_default(&node, "bno055_publisher", "", &support);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error creating node: %d\n", rc);
+    rclc_support_fini(&support);
+    return false;
+  }
+
   // create IMU publisher
-  RCCHECK(rclc_publisher_init_best_effort(
-    &imu_publisher,
-    &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu),
-    "imu/data"));
+  rc = rclc_publisher_init_best_effort(
+    &imu_publisher, 
+    &node, 
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu), "imu/data");
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error creating IMU publisher: %d\n", rc);
+    rcl_node_fini(&node);
+    rclc_support_fini(&support);
+    return false;
+  }
+
   // create magnetic field publisher
-  RCCHECK(rclc_publisher_init_best_effort(
+  rc = rclc_publisher_init_best_effort(
     &mag_publisher,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, MagneticField),
-    "imu/mag"));
+    "imu/mag");
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error creating MAG publisher: %d\n", rc);
+    rcl_node_fini(&node);
+    rclc_support_fini(&support);
+    return false;
+  }
+
   // create timer
   const unsigned int timer_timeout = 100;
-  RCCHECK(rclc_timer_init_default(
+  rc = rclc_timer_init_default(
     &timer,
     &support,
     RCL_MS_TO_NS(timer_timeout),
-    timer_callback));
+    timer_callback);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error creating timer: %d\n", rc);
+    rcl_node_fini(&node);
+    rclc_support_fini(&support);
+    return false;
+  } 
+
   // create executor
   executor = rclc_executor_get_zero_initialized_executor();
   RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
@@ -108,12 +172,35 @@ void destroy_entities()
 {
   rmw_context_t * rmw_context = rcl_context_get_rmw_context(&support.context);
   (void) rmw_uros_set_context_entity_destroy_session_timeout(rmw_context, 0);
-  rcl_publisher_fini(&imu_publisher, &node);
-  rcl_publisher_fini(&mag_publisher, &node);
-  rcl_timer_fini(&timer);
+  
+  
+  rcl_ret_t rc;
+  rc = rcl_publisher_fini(&imu_publisher, &node);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error finalizing IMU publisher: %d\n", rc);
+  }
+
+  rc = rcl_publisher_fini(&mag_publisher, &node);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error finalizing magnetometer publisher: %d\n", rc);
+  }
+
+  rc = rcl_timer_fini(&timer);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error finalizing timer: %d\n", rc);
+  }
+
   rclc_executor_fini(&executor);
-  rcl_node_fini(&node);
-  rclc_support_fini(&support);
+
+  rc = rcl_node_fini(&node);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error finalizing node: %d\n", rc);
+  }
+
+  rc = rclc_support_fini(&support);
+  if (rc != RCL_RET_OK) {
+    Serial.printf("Error finalizing RCL support: %d\n", rc);
+  }
 }
 
 void setup()
@@ -129,6 +216,30 @@ void setup()
     Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
     while (1);
   }
+
+  // Calibrate the sensor
+  uint8_t system, gyro, accel, mag = 0;
+  bno.getCalibration(&system, &gyro, &accel, &mag);
+
+  // Print the calibration status
+  Serial.print("Calibration Status: ");
+  Serial.print("Sys=");
+  Serial.print(system, DEC);
+  Serial.print(" Gyro=");
+  Serial.print(gyro, DEC);
+  Serial.print(" Accel=");
+  Serial.print(accel, DEC);
+  Serial.print(" Mag=");
+  Serial.println(mag, DEC);
+
+  // Prompt the user to perform the calibration
+  while (!system && !gyro && !accel && !mag) {
+    Serial.println("Please perform the calibration routine.");
+    bno.getCalibration(&system, &gyro, &accel, &mag);
+    delay(500);
+}
+
+Serial.println("Calibration complete!");
   delay(1000);
 }
 
