@@ -1,0 +1,25 @@
+['/home/jg/bno055_hardware/src/imu_test/imu_test', '/home/jg/bno055_hardware/install/micro_ros_msgs/local/lib/python3.10/dist-packages', '/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages', '/home/jg/linorobot2_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages', '/home/jg/linorobot2_ws/install/linorobot2_gazebo/local/lib/python3.10/dist-packages', '/opt/ros/humble/lib/python3.10/site-packages', '/opt/ros/humble/local/lib/python3.10/dist-packages', '/usr/lib/python310.zip', '/usr/lib/python3.10', '/usr/lib/python3.10/lib-dynload', '/home/jg/.local/lib/python3.10/site-packages', '/usr/local/lib/python3.10/dist-packages', '/usr/lib/python3/dist-packages']
+Traceback (most recent call last):
+  File "/home/jg/bno055_hardware/src/imu_test/imu_test/imu_3d_visualization.py", line 178, in <module>
+    main()
+  File "/home/jg/bno055_hardware/src/imu_test/imu_test/imu_3d_visualization.py", line 173, in main
+    rclpy.spin(imu_3d_visualization)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 222, in spin
+    executor.spin_once()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 739, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 736, in _spin_once_impl
+    raise handler.exception()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/task.py", line 239, in __call__
+    self._handler.send(None)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 437, in handler
+    await call_coroutine(entity, arg)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 362, in _execute_subscription
+    await await_or_execute(sub.callback, msg)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 107, in await_or_execute
+    return callback(*args)
+  File "/home/jg/bno055_hardware/src/imu_test/imu_test/imu_3d_visualization.py", line 138, in imu_callback
+    base_position = tf2_geometry_msgs.do_transform_point(imu_position, transform)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/tf2_geometry_msgs/tf2_geometry_msgs.py", line 284, in do_transform_point
+    point.point.x,
+AttributeError: 'Point' object has no attribute 'point'

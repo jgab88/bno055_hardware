@@ -1,0 +1,3 @@
+[console_scripts]
+imu_3d_visualization = imu_test.imu_3d_visualization:main
+
