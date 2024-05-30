@@ -10,32 +10,42 @@ def generate_launch_description():
     urdf_file = os.path.join(package_dir, 'urdf', 'robotmodel.urdf')
     rviz_config_file = os.path.join(package_dir, 'rviz', 'robotmodel.rviz')
 
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    with open(urdf_file, 'r') as file:
+        robot_description = file.read()
+
+    robot_state_publisher_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{'robot_description': robot_description}]
+    )
+
+    joint_state_publisher_gui_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        output='screen'
+    )
+
+    imu_3d_visualization_node = Node(
+        package='imu_test',
+        executable='imu_3d_visualization',
+        name='imu_3d_visualization',
+        output='screen'
+    )
+
+    rviz2_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', rviz_config_file]
+    )
 
     return LaunchDescription([
-        DeclareLaunchArgument(
-            'use_sim_time',
-            default_value='false',
-            description='Use simulation (Gazebo) clock if true'),
-
-        Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='robot_state_publisher',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time}],
-            arguments=[urdf_file]),
-
-        Node(
-            package='imu_test',
-            executable='imu_3d_visualization',
-            name='imu_3d_visualization',
-            output='screen'),
-
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
-            arguments=['-d', rviz_config_file]),
+        robot_state_publisher_node,
+        joint_state_publisher_gui_node,
+        imu_3d_visualization_node,
+        rviz2_node
     ])

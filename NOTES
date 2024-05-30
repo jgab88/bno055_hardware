@@ -101,3 +101,37 @@ Given that the orientation is already available in the imu/data topic, you can f
 By utilizing the orientation data directly from the BNO055 IMU, you can simplify the implementation and leverage the IMU's internal sensor fusion capabilities.
 However, keep in mind that position estimation based solely on IMU data is still subject to drift and inaccuracies over time due to the accumulation of errors from the double integration process. For more accurate and reliable position estimation, additional techniques like visual odometry, GPS fusion, or external reference systems can be used in combination with the IMU.
 Thank you for pointing out the availability of the orientation data in the imu/data topic. I hope this clarifies the approach you can take for position estimation using the BNO055 IMU. Let me know if you have any further questions!
+
+
+
+
+
+
+
+5.29.24
+Project Description as of date:
+
+Im using ros2 humble and are trying to represent the physical movement of object1 which is in real life, and object2 which is in a virtual world in the ros2 system. object 1 is a lidar scanner (RP A1 lidar scanner) which has a BNO055 taped to it on the back. Im tackling the task of representing the imu's physical quaternion orientation and Z position (up down movement) in ROS2's Rviz. I have the imu connected to a teensy which is running micro_ros. Im publishing quaternion xyzw (calculated by the adafruit_bno055 library), linear velocity, and angular velocity on node called " imu/data " and Gyroscopic data on " imu/mag ".
+
+I have proper clean data coming into the host computer where I am building a pkg called " imu_test " . My tree looks like this:
+
+¦   +-- imu_test #ros2 enviroment#
+¦       +-- imu_test
+¦       ¦   +-- imu_3d_visualization.py
+¦       ¦   +-- __init__.py
+¦       +-- launch
+¦       ¦   +-- imu_3d_visualization.launch.py
+¦       ¦   +-- imu_test.launch.txt
+¦       +-- package.xml
+¦       +-- resource
+¦       ¦   +-- imu_test
+¦       +-- rviz
+¦       ¦   +-- robotmodel.rviz
+¦       +-- setup.cfg
+¦       +-- setup.py
+¦       +-- test
+¦       ¦   +-- test_copyright.py
+¦       ¦   +-- test_flake8.py
+¦       ¦   +-- test_pep257.py
+¦       +-- urdf
+¦           +-- robotmodel.urdf

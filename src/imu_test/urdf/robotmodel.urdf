@@ -44,10 +44,12 @@
 
   <link name="imu_link_dynamic"/>
 
-  <joint name="imu_dynamic_to_imu" type="fixed">
+  <joint name="imu_dynamic_to_imu" type="prismatic">
     <parent link="imu_link_dynamic"/>
     <child link="imu_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-100.0" upper="100.0" effort="1000.0" velocity="10.0"/>
   </joint>
 
 </robot>

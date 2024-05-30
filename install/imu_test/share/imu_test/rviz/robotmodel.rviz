@@ -8,8 +8,7 @@ Panels:
         - /Status1
         - /RobotModel1
         - /TF1
-        - /PoseArray1
-        - /PoseArray1/Topic1
+        - /TF1/Frames1
       Splitter Ratio: 0.5029411911964417
     Tree Height: 614
   - Class: rviz_common/Selection
@@ -91,11 +90,33 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        base_footprint:
+          Value: true
         base_link:
+          Value: true
+        front_bumper_link:
+          Value: true
+        gps_link:
           Value: true
         imu_link:
           Value: true
         imu_link_dynamic:
+          Value: true
+        inertial_link:
+          Value: true
+        odom:
+          Value: true
+        rear_bumper_link:
+          Value: true
+        top_chassis_link:
+          Value: true
+        top_plate_front_link:
+          Value: true
+        top_plate_link:
+          Value: true
+        top_plate_rear_link:
+          Value: true
+        user_rail_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -103,47 +124,31 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_link:
-          imu_link_dynamic:
-            imu_link:
+        odom:
+          base_link:
+            base_footprint:
+              {}
+            front_bumper_link:
+              {}
+            gps_link:
+              {}
+            imu_link_dynamic:
+              imu_link:
+                {}
+            inertial_link:
+              {}
+            rear_bumper_link:
+              {}
+            top_chassis_link:
+              {}
+            top_plate_link:
+              top_plate_front_link:
+                {}
+              top_plate_rear_link:
+                {}
+            user_rail_link:
               {}
       Update Interval: 1
-      Value: true
-    - Alpha: 1
-      Arrow Length: 1
-      Axes Length: 0.30000001192092896
-      Axes Radius: 0.009999999776482582
-      Class: rviz_default_plugins/PoseArray
-      Color: 255; 25; 0
-      Enabled: true
-      Head Length: 0.07000000029802322
-      Head Radius: 0.029999999329447746
-      Name: PoseArray
-      Shaft Length: 0.23000000417232513
-      Shaft Radius: 0.009999999776482582
-      Shape: Arrow (Flat)
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /imu/pose
-      Value: true
-    - Alpha: 1
-      Class: rviz_default_plugins/PointStamped
-      Color: 204; 41; 204
-      Enabled: true
-      History Length: 1
-      Name: PointStamped
-      Radius: 0.20000000298023224
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /imu/position
       Value: true
   Enabled: true
   Global Options:
@@ -191,7 +196,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 10
+      Distance: 1.469738483428955
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1

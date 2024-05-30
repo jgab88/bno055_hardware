@@ -45,17 +45,12 @@ class IMU3DVisualization(Node):
 
         # Initialize variables for position estimation
         self.prev_time = self.get_clock().now().to_msg().sec + self.get_clock().now().to_msg().nanosec * 1e-9
-        self.vel_x = 0.0
-        self.vel_y = 0.0
         self.vel_z = 0.0
-        self.pos_x = 0.0
-        self.pos_y = 0.0
         self.pos_z = 0.0
-        self.filtered_pos_x = 0.0
-        self.filtered_pos_y = 0.0
-        self.filtered_pos_z = 0.0
+        self.alpha = 0.98  # Complementary filter coefficient
 
     def imu_callback(self, msg):
+        # Create the rotational transform from base_link to imu_link_dynamic
         t = TransformStamped()
         t.header.stamp = self.get_clock().now().to_msg()
         t.header.frame_id = 'base_link'
@@ -63,94 +58,73 @@ class IMU3DVisualization(Node):
         t.transform.translation.x = 0.0
         t.transform.translation.y = 0.0
         t.transform.translation.z = 0.0
+        t.transform.rotation = msg.orientation
 
-        # Extract the orientation from the IMU message
-        q = msg.orientation
-
-        # Apply the orientation to the transform
-        t.transform.rotation.x = q.x
-        t.transform.rotation.y = q.y
-        t.transform.rotation.z = q.z
-        t.transform.rotation.w = q.w
-
+        # Broadcast the rotational transform
         self.br.sendTransform(t)
 
-        # Extract linear acceleration from the IMU message
-        linear_accel = msg.linear_acceleration
-        ax = linear_accel.x
-        ay = linear_accel.y
-        az = linear_accel.z
+        # Extract linear acceleration and angular velocity from the IMU message
+        ax = msg.linear_acceleration.x
+        ay = msg.linear_acceleration.y
+        az = msg.linear_acceleration.z
+        gx = msg.angular_velocity.x
+        gy = msg.angular_velocity.y
+        gz = msg.angular_velocity.z
+        mx = msg.orientation.x
+        my = msg.orientation.y
+        mz = msg.orientation.z
 
         # Get the current timestamp
         current_time = self.get_clock().now().to_msg().sec + self.get_clock().now().to_msg().nanosec * 1e-9
-        # Compute the time difference between the current and previous timestamp
         dt = current_time - self.prev_time
 
         # Integrate linear acceleration to obtain velocity
-        self.vel_x += ax * dt
-        self.vel_y += ay * dt
         self.vel_z += az * dt
 
-        # Integrate velocity to obtain position
-        self.pos_x += self.vel_x * dt
-        self.pos_y += self.vel_y * dt
-        self.pos_z += self.vel_z * dt
+        # Apply Complementary Filter to estimate position
+        acc_pos = self.pos_z + self.vel_z * dt
+        gyro_pos = self.pos_z + gz * dt
+        mag_pos = self.pos_z + mz * dt
+        self.pos_z = self.alpha * gyro_pos + (1 - self.alpha) * (0.5 * acc_pos + 0.5 * mag_pos)
 
         # Update the previous timestamp
         self.prev_time = current_time
 
-        # Apply a high-pass filter to the position estimate
-        alpha = 0.1  # Filter coefficient (adjust as needed)
-        self.filtered_pos_x = alpha * self.pos_x + (1 - alpha) * self.filtered_pos_x
-        self.filtered_pos_y = alpha * self.pos_y + (1 - alpha) * self.filtered_pos_y
-        self.filtered_pos_z = alpha * self.pos_z + (1 - alpha) * self.filtered_pos_z
-
-        # Create a PoseStamped message and publish the estimated position and orientation
-        pose_msg = PoseStamped()
-        pose_msg.header.stamp = self.get_clock().now().to_msg()
-        pose_msg.header.frame_id = 'base_link'
-        pose_msg.pose.position.x = self.filtered_pos_x
-        pose_msg.pose.position.y = self.filtered_pos_y
-        pose_msg.pose.position.z = self.filtered_pos_z
-        pose_msg.pose.orientation = msg.orientation
-
-        self.pose_pub.publish(pose_msg)
-
-        # Get the transform from base_link to imu_link
         try:
-            transform = self.tf_buffer.lookup_transform('base_link', 'imu_link', rclpy.time.Time())
+            transform_imu_dynamic_to_imu = self.tf_buffer.lookup_transform('imu_link_dynamic', 'imu_link', rclpy.time.Time())
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
-            self.get_logger().warn('Failed to get transform from base_link to imu_link')
+            self.get_logger().warn('Failed to get transform from imu_link_dynamic to imu_link')
             return
 
-        # Transform the estimated position from imu_link frame to base_link frame
-        base_position_x = (transform.transform.rotation.w * transform.transform.rotation.w + transform.transform.rotation.x * transform.transform.rotation.x - transform.transform.rotation.y * transform.transform.rotation.y - transform.transform.rotation.z * transform.transform.rotation.z) * self.filtered_pos_x + 2 * (transform.transform.rotation.x * transform.transform.rotation.y + transform.transform.rotation.w * transform.transform.rotation.z) * self.filtered_pos_y + 2 * (transform.transform.rotation.x * transform.transform.rotation.z - transform.transform.rotation.w * transform.transform.rotation.y) * self.filtered_pos_z + transform.transform.translation.x
-        base_position_y = 2 * (transform.transform.rotation.x * transform.transform.rotation.y - transform.transform.rotation.w * transform.transform.rotation.z) * self.filtered_pos_x + (transform.transform.rotation.w * transform.transform.rotation.w - transform.transform.rotation.x * transform.transform.rotation.x + transform.transform.rotation.y * transform.transform.rotation.y - transform.transform.rotation.z * transform.transform.rotation.z) * self.filtered_pos_y + 2 * (transform.transform.rotation.y * transform.transform.rotation.z + transform.transform.rotation.w * transform.transform.rotation.x) * self.filtered_pos_z + transform.transform.translation.y
-        base_position_z = 2 * (transform.transform.rotation.x * transform.transform.rotation.z + transform.transform.rotation.w * transform.transform.rotation.y) * self.filtered_pos_x + 2 * (transform.transform.rotation.y * transform.transform.rotation.z - transform.transform.rotation.w * transform.transform.rotation.x) * self.filtered_pos_y + (transform.transform.rotation.w * transform.transform.rotation.w - transform.transform.rotation.x * transform.transform.rotation.x - transform.transform.rotation.y * transform.transform.rotation.y + transform.transform.rotation.z * transform.transform.rotation.z) * self.filtered_pos_z + transform.transform.translation.z
+        # Create a PointStamped object with the estimated position in the imu_link_dynamic frame
+        imu_dynamic_position = PointStamped()
+        imu_dynamic_position.header.frame_id = 'imu_link_dynamic'
+        imu_dynamic_position.header.stamp = self.get_clock().now().to_msg()
+        imu_dynamic_position.point.x = 0.0
+        imu_dynamic_position.point.y = 0.0
+        imu_dynamic_position.point.z = self.pos_z
 
-        # Create a Point object and assign it to the PoseStamped message
-        base_position = Point(x=base_position_x, y=base_position_y, z=base_position_z)
+        # Transform the position from imu_link_dynamic to imu_link
+        imu_position = tf2_geometry_msgs.do_transform_point(imu_dynamic_position, transform_imu_dynamic_to_imu)
 
-        # Create a PoseStamped message and publish the estimated position and orientation
+        # Print the estimated position
+        self.get_logger().info(f"Estimated position: x={imu_position.point.x}, y={imu_position.point.y}, z={imu_position.point.z}")
+
+        # Create a PoseStamped message and publish the estimated orientation and position in the imu_link frame
         pose_msg = PoseStamped()
         pose_msg.header.stamp = self.get_clock().now().to_msg()
-        pose_msg.header.frame_id = 'base_link'
-        pose_msg.pose.position = base_position
+        pose_msg.header.frame_id = 'imu_link'
+        pose_msg.pose.position.z = imu_position.point.z
         pose_msg.pose.orientation = msg.orientation
-
         self.pose_pub.publish(pose_msg)
 
-        # Create a PointStamped message and publish the estimated position
+        # Create a PointStamped message and publish the estimated position in the imu_link frame
         point_msg = PointStamped()
         point_msg.header.stamp = self.get_clock().now().to_msg()
-        point_msg.header.frame_id = 'base_link'
-        point_msg.point.x = base_position.x
-        point_msg.point.y = base_position.y
-        point_msg.point.z = base_position.z
-
+        point_msg.header.frame_id = 'imu_link'
+        point_msg.point.z = imu_position.point.z
         self.point_pub.publish(point_msg)
-        print(f"Base Position: x={base_position.x}, y={base_position.y}, z={base_position.z}")
-        print(f"Point Message: x={point_msg.point.x}, y={point_msg.point.y}, z={point_msg.point.z}")
+
     def mag_callback(self, msg):
         # Process the magnetometer data
         mag_x = msg.magnetic_field.x
