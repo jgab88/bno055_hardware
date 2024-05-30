@@ -39,7 +39,7 @@ class IMU3DVisualization(Node):
             PoseStamped,
             'imu/pose',
             10)
-        self.point_pub = self.create_publisher(PointStamped, 'imu/position', 10)
+        self.transformed_pos_pub = self.create_publisher(PointStamped, 'imu/transformed_position', 10)
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
 
@@ -140,17 +140,19 @@ class IMU3DVisualization(Node):
 
         self.pose_pub.publish(pose_msg)
 
-        # Create a PointStamped message and publish the estimated position
-        point_msg = PointStamped()
-        point_msg.header.stamp = self.get_clock().now().to_msg()
-        point_msg.header.frame_id = 'base_link'
-        point_msg.point.x = base_position.x
-        point_msg.point.y = base_position.y
-        point_msg.point.z = base_position.z
+        # Create a PointStamped message and publish the transformed position
+        transformed_pos_msg = PointStamped()
+        transformed_pos_msg.header.stamp = self.get_clock().now().to_msg()
+        transformed_pos_msg.header.frame_id = 'base_link'
+        transformed_pos_msg.point.x = base_position_x
+        transformed_pos_msg.point.y = base_position_y
+        transformed_pos_msg.point.z = base_position_z
 
-        self.point_pub.publish(point_msg)
+        self.transformed_pos_pub.publish(transformed_pos_msg)
+
         print(f"Base Position: x={base_position.x}, y={base_position.y}, z={base_position.z}")
-        print(f"Point Message: x={point_msg.point.x}, y={point_msg.point.y}, z={point_msg.point.z}")
+        print(f"Transformed Position: x={transformed_pos_msg.point.x}, y={transformed_pos_msg.point.y}, z={transformed_pos_msg.point.z}")
+
     def mag_callback(self, msg):
         # Process the magnetometer data
         mag_x = msg.magnetic_field.x
