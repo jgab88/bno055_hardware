@@ -12,7 +12,7 @@
 #include <SPI.h>
 #include <Arduino.h>
 #include <string.h>
-#include <SD.h>
+
 
 #define LED_PIN 13
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){return false;}}
@@ -33,7 +33,6 @@ sensor_msgs__msg__Imu imu_msg;
 sensor_msgs__msg__MagneticField mag_msg;
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
 
-File logFile;
 
 bool micro_ros_init_successful;
 
@@ -44,17 +43,6 @@ enum states {
   AGENT_DISCONNECTED
 } state;
 
-void logError(const char* message) {
-  if (logFile) {
-    unsigned long currentTime = millis();
-    logFile.print("[");
-    logFile.print(currentTime);
-    logFile.print("] ");
-    logFile.print(message);
-//    logFile.print('\n');
-    logFile.flush(); // Flush the data to the file
-  }
-}
 
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
@@ -104,14 +92,12 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
     rcl_ret_t rc;
     rc = rcl_publish(&imu_publisher, &imu_msg, NULL);
     if (rc != RCL_RET_OK) {
-      logError("Error publishing IMU data: ");
-      logError(rcl_get_error_string().str);
+      Serial.print("Error publishing IMU data: ");
     }
 
     rc = rcl_publish(&mag_publisher, &mag_msg, NULL);
     if (rc != RCL_RET_OK) {
-      logError("Error publishing magnetometer data: ");
-      logError(rcl_get_error_string().str);
+      Serial.print("Error publishing Mag");
     }
   }
 }
@@ -122,16 +108,15 @@ bool create_entities()
   // create init_options
   rcl_ret_t rc = rclc_support_init(&support, 0, NULL, &allocator);
   if (rc != RCL_RET_OK) {
-    logError("Error initializing RCL support: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error initializing RCL support: ");
     return false;
   }
 
   // create node
   rc = rclc_node_init_default(&node, "bno055_publisher", "", &support);
   if (rc != RCL_RET_OK) {
-    logError("Error creating node: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error creating node: ");
+    Serial.print(rcl_get_error_string().str);
     rclc_support_fini(&support);
     return false;
   }
@@ -139,8 +124,8 @@ bool create_entities()
   // create IMU publisher
   rc = rclc_publisher_init_best_effort(&imu_publisher, &node, ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu), "imu/data");
   if (rc != RCL_RET_OK) {
-    logError("Error creating IMU publisher: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error creating IMU publisher: ");
+    Serial.print(rcl_get_error_string().str);
     rcl_node_fini(&node);
     rclc_support_fini(&support);
     return false;
@@ -149,8 +134,8 @@ bool create_entities()
   // create magnetic field publisher
   rc = rclc_publisher_init_best_effort(&mag_publisher, &node, ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, MagneticField), "imu/mag");
   if (rc != RCL_RET_OK) {
-    logError("Error creating MAG publisher: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error creating MAG publisher: ");
+    Serial.print(rcl_get_error_string().str);
     rcl_node_fini(&node);
     rclc_support_fini(&support);
     return false;
@@ -160,8 +145,8 @@ bool create_entities()
   const unsigned int timer_timeout = 100;
   rc = rclc_timer_init_default(&timer, &support, RCL_MS_TO_NS(timer_timeout), timer_callback);
   if (rc != RCL_RET_OK) {
-    logError("Error creating timer: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error creating timer: ");
+    Serial.print(rcl_get_error_string().str);
     rcl_node_fini(&node);
     rclc_support_fini(&support);
     return false;
@@ -182,34 +167,34 @@ void destroy_entities()
   rcl_ret_t rc;
   rc = rcl_publisher_fini(&imu_publisher, &node);
   if (rc != RCL_RET_OK) {
-    logError("Error finalizing IMU publisher: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error finalizing IMU publisher: ");
+    Serial.print(rcl_get_error_string().str);
   }
 
   rc = rcl_publisher_fini(&mag_publisher, &node);
   if (rc != RCL_RET_OK) {
-    logError("Error finalizing magnetometer publisher: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error finalizing magnetometer publisher: ");
+    Serial.print(rcl_get_error_string().str);
   }
 
   rc = rcl_timer_fini(&timer);
   if (rc != RCL_RET_OK) {
-    logError("Error finalizing timer: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error finalizing timer: ");
+    Serial.print(rcl_get_error_string().str);
   }
 
   rclc_executor_fini(&executor);
 
   rc = rcl_node_fini(&node);
   if (rc != RCL_RET_OK) {
-    logError("Error finalizing node: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error finalizing node: ");
+    Serial.print(rcl_get_error_string().str);
   }
 
   rc = rclc_support_fini(&support);
   if (rc != RCL_RET_OK) {
-    logError("Error finalizing RCL support: ");
-    logError(rcl_get_error_string().str);
+    Serial.print("Error finalizing RCL support: ");
+    Serial.print(rcl_get_error_string().str);
   }
 }
 
@@ -252,18 +237,6 @@ void setup()
   Serial.println("Calibration complete!");
   delay(200);
 
-  // Initialize SD card
-  if (!SD.begin(BUILTIN_SDCARD)) {
-    Serial.println("SD card initialization failed!");
-    // Handle the error condition
-  }
-
-  // Open or create a log file on the SD card
-  logFile = SD.open("log.txt", FILE_WRITE);
-  if (!logFile) {
-    Serial.println("Failed to open log file!");
-    // Handle the error condition
-  }
 }
 
 void loop()
@@ -299,6 +272,5 @@ void loop()
     digitalWrite(LED_PIN, 0);
   }
 
-  // Close the log file when necessary
-  // logFile.close();
+
 }
