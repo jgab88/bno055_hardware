@@ -1,0 +1,295 @@
+[0.000000] (-) TimerEvent: {}
+[0.000815] (-) JobUnselected: {'identifier': 'imu_complementary_filter'}
+[0.000866] (-) JobUnselected: {'identifier': 'imu_test'}
+[0.000885] (-) JobUnselected: {'identifier': 'imu_tools'}
+[0.000899] (-) JobUnselected: {'identifier': 'micro_ros_agent'}
+[0.000930] (-) JobUnselected: {'identifier': 'micro_ros_msgs'}
+[0.000946] (-) JobUnselected: {'identifier': 'micro_ros_setup'}
+[0.001141] (-) JobUnselected: {'identifier': 'rviz_imu_plugin'}
+[0.001185] (imu_filter_madgwick) JobQueued: {'identifier': 'imu_filter_madgwick', 'dependencies': OrderedDict()}
+[0.001207] (imu_filter_madgwick) JobStarted: {'identifier': 'imu_filter_madgwick'}
+[0.007474] (imu_filter_madgwick) JobProgress: {'identifier': 'imu_filter_madgwick', 'progress': 'cmake'}
+[0.007694] (imu_filter_madgwick) Command: {'cmd': ['/usr/bin/cmake', '/home/jg/bno055_hardware/src/imu_tools/imu_filter_madgwick', '-DCMAKE_INSTALL_PREFIX=/home/jg/bno055_hardware/install/imu_filter_madgwick'], 'cwd': '/home/jg/bno055_hardware/build/imu_filter_madgwick', 'env': OrderedDict([('LINOROBOT2_BASE', '4wd'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jg'), ('SSH_CLIENT', '192.168.0.52 52014 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/jg/bno055_hardware/install/rviz_imu_plugin/lib:/home/jg/bno055_hardware/install/imu_filter_madgwick/lib:/home/jg/bno055_hardware/install/imu_complementary_filter/lib:/home/jg/linorobot2_ws/install/micro_ros_agent/lib:/home/jg/linorobot2_ws/install/micro_ros_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/jg'), ('OLDPWD', '/home/jg/bno055_hardware/src'), ('TERM_PROGRAM_VERSION', '1.89.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-88463016-4269-471d-ab5f-fa9b64ee600d.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/jg/bno055_hardware/install:/home/jg/linorobot2_ws/install:/home/jg/sam_bot_description/install:/home/jg/turtlebot3_ws/install:/home/jg/pointcloud_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jg'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/models:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/jg/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jg/.platformio/penv/bin:/home/jg/.platformio/penv/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-0b768504e6.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_test:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/jg/bno055_hardware/build/imu_filter_madgwick'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.0.52 52014 192.168.0.178 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LINOROBOT2_DEPTH_SENSOR', 'realsense'), ('PYTHONPATH', '/home/jg/bno055_hardware/build/imu_test:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:/home/jg/linorobot2_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/home/jg/linorobot2_ws/install/linorobot2_gazebo/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('LINOROBOT2_LASER_SENSOR', 'rplidar'), ('CMAKE_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble')]), 'shell': False}
+[0.047533] (imu_filter_madgwick) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.091678] (imu_filter_madgwick) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.096363] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.100004] (-) TimerEvent: {}
+[0.140306] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.145382] (imu_filter_madgwick) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.145549] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.145802] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.147940] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.200111] (-) TimerEvent: {}
+[0.208340] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.213532] (imu_filter_madgwick) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.213752] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.214083] (imu_filter_madgwick) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.216336] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.9 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.300234] (-) TimerEvent: {}
+[0.318162] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.383099] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found rclcpp: 16.0.9 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.400329] (-) TimerEvent: {}
+[0.418691] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.423146] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.429762] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.439871] (imu_filter_madgwick) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.454377] (imu_filter_madgwick) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.500451] (-) TimerEvent: {}
+[0.505363] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.508374] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.6 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.576203] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[0.595915] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[0.600562] (-) TimerEvent: {}
+[0.631059] (imu_filter_madgwick) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.638913] (imu_filter_madgwick) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.684050] (imu_filter_madgwick) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[0.684341] (imu_filter_madgwick) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.700702] (-) TimerEvent: {}
+[0.733328] (imu_filter_madgwick) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[0.734492] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[0.800823] (-) TimerEvent: {}
+[0.844796] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found rclcpp_components: 16.0.9 (/opt/ros/humble/share/rclcpp_components/cmake)\n'}
+[0.892943] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found geometry_msgs: 4.2.4 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[0.900934] (-) TimerEvent: {}
+[0.924449] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.7 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[0.937227] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[0.938205] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[0.938346] (imu_filter_madgwick) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[1.001084] (-) TimerEvent: {}
+[1.101440] (-) TimerEvent: {}
+[1.137621] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[1.197496] (imu_filter_madgwick) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 1.3.9 (/opt/ros/humble/share/ament_cmake_gtest/cmake)\n'}
+[1.200511] (imu_filter_madgwick) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[1.201495] (-) TimerEvent: {}
+[1.250647] (imu_filter_madgwick) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.275555] (imu_filter_madgwick) StdoutLine: {'line': b'-- Generating done\n'}
+[1.277820] (imu_filter_madgwick) StdoutLine: {'line': b'-- Build files have been written to: /home/jg/bno055_hardware/build/imu_filter_madgwick\n'}
+[1.288171] (imu_filter_madgwick) CommandEnded: {'returncode': 0}
+[1.289433] (imu_filter_madgwick) JobProgress: {'identifier': 'imu_filter_madgwick', 'progress': 'build'}
+[1.289589] (imu_filter_madgwick) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/jg/bno055_hardware/build/imu_filter_madgwick', '--', '-j8', '-l8'], 'cwd': '/home/jg/bno055_hardware/build/imu_filter_madgwick', 'env': OrderedDict([('LINOROBOT2_BASE', '4wd'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jg'), ('SSH_CLIENT', '192.168.0.52 52014 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/jg/bno055_hardware/install/rviz_imu_plugin/lib:/home/jg/bno055_hardware/install/imu_filter_madgwick/lib:/home/jg/bno055_hardware/install/imu_complementary_filter/lib:/home/jg/linorobot2_ws/install/micro_ros_agent/lib:/home/jg/linorobot2_ws/install/micro_ros_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/jg'), ('OLDPWD', '/home/jg/bno055_hardware/src'), ('TERM_PROGRAM_VERSION', '1.89.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-88463016-4269-471d-ab5f-fa9b64ee600d.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/jg/bno055_hardware/install:/home/jg/linorobot2_ws/install:/home/jg/sam_bot_description/install:/home/jg/turtlebot3_ws/install:/home/jg/pointcloud_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jg'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/models:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/jg/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jg/.platformio/penv/bin:/home/jg/.platformio/penv/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-0b768504e6.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_test:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/jg/bno055_hardware/build/imu_filter_madgwick'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.0.52 52014 192.168.0.178 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LINOROBOT2_DEPTH_SENSOR', 'realsense'), ('PYTHONPATH', '/home/jg/bno055_hardware/build/imu_test:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:/home/jg/linorobot2_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/home/jg/linorobot2_ws/install/linorobot2_gazebo/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('LINOROBOT2_LASER_SENSOR', 'rplidar'), ('CMAKE_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble')]), 'shell': False}
+[1.301644] (-) TimerEvent: {}
+[1.321560] (imu_filter_madgwick) StdoutLine: {'line': b'[ 21%] \x1b[32mBuilding CXX object CMakeFiles/imu_filter_madgwick.dir/src/imu_filter.cpp.o\x1b[0m\n'}
+[1.321767] (imu_filter_madgwick) StdoutLine: {'line': b'[ 21%] \x1b[32mBuilding CXX object CMakeFiles/imu_filter_madgwick.dir/src/stateless_orientation.cpp.o\x1b[0m\n'}
+[1.321845] (imu_filter_madgwick) StdoutLine: {'line': b'[ 21%] \x1b[32mBuilding CXX object CMakeFiles/imu_filter_madgwick.dir/src/imu_filter_ros.cpp.o\x1b[0m\n'}
+[1.321976] (imu_filter_madgwick) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\x1b[0m\n'}
+[1.322070] (imu_filter_madgwick) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\x1b[0m\n'}
+[1.401772] (-) TimerEvent: {}
+[1.502322] (-) TimerEvent: {}
+[1.602714] (-) TimerEvent: {}
+[1.703114] (-) TimerEvent: {}
+[1.803522] (-) TimerEvent: {}
+[1.903902] (-) TimerEvent: {}
+[1.997146] (imu_filter_madgwick) StdoutLine: {'line': b'[ 42%] \x1b[32m\x1b[1mLinking CXX static library libgtest_main.a\x1b[0m\n'}
+[2.004026] (-) TimerEvent: {}
+[2.041758] (imu_filter_madgwick) StdoutLine: {'line': b'[ 42%] Built target gtest_main\n'}
+[2.104152] (-) TimerEvent: {}
+[2.204523] (-) TimerEvent: {}
+[2.304914] (-) TimerEvent: {}
+[2.405309] (-) TimerEvent: {}
+[2.505690] (-) TimerEvent: {}
+[2.606074] (-) TimerEvent: {}
+[2.706483] (-) TimerEvent: {}
+[2.806874] (-) TimerEvent: {}
+[2.907280] (-) TimerEvent: {}
+[3.007620] (-) TimerEvent: {}
+[3.107993] (-) TimerEvent: {}
+[3.208353] (-) TimerEvent: {}
+[3.308696] (-) TimerEvent: {}
+[3.409042] (-) TimerEvent: {}
+[3.509382] (-) TimerEvent: {}
+[3.609726] (-) TimerEvent: {}
+[3.710060] (-) TimerEvent: {}
+[3.810404] (-) TimerEvent: {}
+[3.865815] (imu_filter_madgwick) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX static library libgtest.a\x1b[0m\n'}
+[3.910490] (-) TimerEvent: {}
+[3.923646] (imu_filter_madgwick) StdoutLine: {'line': b'[ 50%] Built target gtest\n'}
+[4.010591] (-) TimerEvent: {}
+[4.110933] (-) TimerEvent: {}
+[4.211260] (-) TimerEvent: {}
+[4.311590] (-) TimerEvent: {}
+[4.411910] (-) TimerEvent: {}
+[4.512231] (-) TimerEvent: {}
+[4.612553] (-) TimerEvent: {}
+[4.712866] (-) TimerEvent: {}
+[4.813178] (-) TimerEvent: {}
+[4.913524] (-) TimerEvent: {}
+[5.013857] (-) TimerEvent: {}
+[5.114171] (-) TimerEvent: {}
+[5.214487] (-) TimerEvent: {}
+[5.314821] (-) TimerEvent: {}
+[5.415145] (-) TimerEvent: {}
+[5.515483] (-) TimerEvent: {}
+[5.615836] (-) TimerEvent: {}
+[5.716183] (-) TimerEvent: {}
+[5.816524] (-) TimerEvent: {}
+[5.916847] (-) TimerEvent: {}
+[6.017166] (-) TimerEvent: {}
+[6.117497] (-) TimerEvent: {}
+[6.217823] (-) TimerEvent: {}
+[6.318173] (-) TimerEvent: {}
+[6.418508] (-) TimerEvent: {}
+[6.518830] (-) TimerEvent: {}
+[6.619210] (-) TimerEvent: {}
+[6.719595] (-) TimerEvent: {}
+[6.819969] (-) TimerEvent: {}
+[6.920337] (-) TimerEvent: {}
+[7.020760] (-) TimerEvent: {}
+[7.121131] (-) TimerEvent: {}
+[7.221509] (-) TimerEvent: {}
+[7.321893] (-) TimerEvent: {}
+[7.422246] (-) TimerEvent: {}
+[7.522614] (-) TimerEvent: {}
+[7.622984] (-) TimerEvent: {}
+[7.723328] (-) TimerEvent: {}
+[7.823627] (-) TimerEvent: {}
+[7.924003] (-) TimerEvent: {}
+[8.024406] (-) TimerEvent: {}
+[8.124824] (-) TimerEvent: {}
+[8.225204] (-) TimerEvent: {}
+[8.325555] (-) TimerEvent: {}
+[8.425905] (-) TimerEvent: {}
+[8.526253] (-) TimerEvent: {}
+[8.626602] (-) TimerEvent: {}
+[8.726955] (-) TimerEvent: {}
+[8.827248] (-) TimerEvent: {}
+[8.927575] (-) TimerEvent: {}
+[9.027928] (-) TimerEvent: {}
+[9.128294] (-) TimerEvent: {}
+[9.228655] (-) TimerEvent: {}
+[9.329022] (-) TimerEvent: {}
+[9.429328] (-) TimerEvent: {}
+[9.529654] (-) TimerEvent: {}
+[9.629997] (-) TimerEvent: {}
+[9.730366] (-) TimerEvent: {}
+[9.830673] (-) TimerEvent: {}
+[9.931030] (-) TimerEvent: {}
+[10.031372] (-) TimerEvent: {}
+[10.131726] (-) TimerEvent: {}
+[10.232101] (-) TimerEvent: {}
+[10.332458] (-) TimerEvent: {}
+[10.432811] (-) TimerEvent: {}
+[10.533155] (-) TimerEvent: {}
+[10.633514] (-) TimerEvent: {}
+[10.733870] (-) TimerEvent: {}
+[10.834230] (-) TimerEvent: {}
+[10.934582] (-) TimerEvent: {}
+[11.034894] (-) TimerEvent: {}
+[11.135243] (-) TimerEvent: {}
+[11.235593] (-) TimerEvent: {}
+[11.335954] (-) TimerEvent: {}
+[11.436308] (-) TimerEvent: {}
+[11.536673] (-) TimerEvent: {}
+[11.637043] (-) TimerEvent: {}
+[11.737397] (-) TimerEvent: {}
+[11.837750] (-) TimerEvent: {}
+[11.938081] (-) TimerEvent: {}
+[12.038403] (-) TimerEvent: {}
+[12.138757] (-) TimerEvent: {}
+[12.239101] (-) TimerEvent: {}
+[12.339419] (-) TimerEvent: {}
+[12.439731] (-) TimerEvent: {}
+[12.540053] (-) TimerEvent: {}
+[12.640413] (-) TimerEvent: {}
+[12.740775] (-) TimerEvent: {}
+[12.841153] (-) TimerEvent: {}
+[12.941560] (-) TimerEvent: {}
+[13.041946] (-) TimerEvent: {}
+[13.142306] (-) TimerEvent: {}
+[13.242682] (-) TimerEvent: {}
+[13.342996] (-) TimerEvent: {}
+[13.362619] (imu_filter_madgwick) StdoutLine: {'line': b'[ 57%] \x1b[32m\x1b[1mLinking CXX shared library libimu_filter_madgwick.so\x1b[0m\n'}
+[13.443144] (-) TimerEvent: {}
+[13.543547] (-) TimerEvent: {}
+[13.644041] (-) TimerEvent: {}
+[13.744437] (-) TimerEvent: {}
+[13.844826] (-) TimerEvent: {}
+[13.945199] (-) TimerEvent: {}
+[14.045582] (-) TimerEvent: {}
+[14.145902] (-) TimerEvent: {}
+[14.220798] (imu_filter_madgwick) StdoutLine: {'line': b'[ 57%] Built target imu_filter_madgwick\n'}
+[14.235204] (imu_filter_madgwick) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object test/CMakeFiles/stateless_orientation_test.dir/stateless_orientation_test.cpp.o\x1b[0m\n'}
+[14.235410] (imu_filter_madgwick) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object CMakeFiles/imu_filter_madgwick_node.dir/src/imu_filter_node.cpp.o\x1b[0m\n'}
+[14.235479] (imu_filter_madgwick) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object test/CMakeFiles/madgwick_test.dir/madgwick_test.cpp.o\x1b[0m\n'}
+[14.246054] (-) TimerEvent: {}
+[14.346419] (-) TimerEvent: {}
+[14.446785] (-) TimerEvent: {}
+[14.547118] (-) TimerEvent: {}
+[14.647478] (-) TimerEvent: {}
+[14.747842] (-) TimerEvent: {}
+[14.848179] (-) TimerEvent: {}
+[14.948559] (-) TimerEvent: {}
+[15.048947] (-) TimerEvent: {}
+[15.149308] (-) TimerEvent: {}
+[15.249681] (-) TimerEvent: {}
+[15.264678] (imu_filter_madgwick) StdoutLine: {'line': b'[ 85%] \x1b[32m\x1b[1mLinking CXX executable madgwick_test\x1b[0m\n'}
+[15.335593] (imu_filter_madgwick) StdoutLine: {'line': b'[ 92%] \x1b[32m\x1b[1mLinking CXX executable stateless_orientation_test\x1b[0m\n'}
+[15.349856] (-) TimerEvent: {}
+[15.450374] (-) TimerEvent: {}
+[15.550970] (-) TimerEvent: {}
+[15.651609] (-) TimerEvent: {}
+[15.752282] (-) TimerEvent: {}
+[15.852930] (-) TimerEvent: {}
+[15.953510] (-) TimerEvent: {}
+[16.053928] (-) TimerEvent: {}
+[16.077692] (imu_filter_madgwick) StdoutLine: {'line': b'[ 92%] Built target madgwick_test\n'}
+[16.143297] (imu_filter_madgwick) StdoutLine: {'line': b'[ 92%] Built target stateless_orientation_test\n'}
+[16.154068] (-) TimerEvent: {}
+[16.254422] (-) TimerEvent: {}
+[16.354766] (-) TimerEvent: {}
+[16.455078] (-) TimerEvent: {}
+[16.555420] (-) TimerEvent: {}
+[16.655720] (-) TimerEvent: {}
+[16.754665] (imu_filter_madgwick) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable imu_filter_madgwick_node\x1b[0m\n'}
+[16.755788] (-) TimerEvent: {}
+[16.856076] (-) TimerEvent: {}
+[16.956481] (-) TimerEvent: {}
+[17.056880] (-) TimerEvent: {}
+[17.091312] (imu_filter_madgwick) StdoutLine: {'line': b'[100%] Built target imu_filter_madgwick_node\n'}
+[17.098137] (imu_filter_madgwick) CommandEnded: {'returncode': 0}
+[17.119612] (imu_filter_madgwick) JobProgress: {'identifier': 'imu_filter_madgwick', 'progress': 'install'}
+[17.125835] (imu_filter_madgwick) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/jg/bno055_hardware/build/imu_filter_madgwick'], 'cwd': '/home/jg/bno055_hardware/build/imu_filter_madgwick', 'env': OrderedDict([('LINOROBOT2_BASE', '4wd'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jg'), ('SSH_CLIENT', '192.168.0.52 52014 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/jg/bno055_hardware/install/rviz_imu_plugin/lib:/home/jg/bno055_hardware/install/imu_filter_madgwick/lib:/home/jg/bno055_hardware/install/imu_complementary_filter/lib:/home/jg/linorobot2_ws/install/micro_ros_agent/lib:/home/jg/linorobot2_ws/install/micro_ros_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/jg'), ('OLDPWD', '/home/jg/bno055_hardware/src'), ('TERM_PROGRAM_VERSION', '1.89.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-88463016-4269-471d-ab5f-fa9b64ee600d.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/jg/bno055_hardware/install:/home/jg/linorobot2_ws/install:/home/jg/sam_bot_description/install:/home/jg/turtlebot3_ws/install:/home/jg/pointcloud_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jg'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/models:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/jg/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jg/.platformio/penv/bin:/home/jg/.platformio/penv/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-0b768504e6.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_test:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/jg/bno055_hardware/build/imu_filter_madgwick'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.0.52 52014 192.168.0.178 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LINOROBOT2_DEPTH_SENSOR', 'realsense'), ('PYTHONPATH', '/home/jg/bno055_hardware/build/imu_test:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:/home/jg/linorobot2_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/home/jg/linorobot2_ws/install/linorobot2_gazebo/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('LINOROBOT2_LASER_SENSOR', 'rplidar'), ('CMAKE_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble')]), 'shell': False}
+[17.131655] (imu_filter_madgwick) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[17.131840] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/lib/libimu_filter_madgwick.so\n'}
+[17.140203] (imu_filter_madgwick) StdoutLine: {'line': b'-- Set runtime path of "/home/jg/bno055_hardware/install/imu_filter_madgwick/lib/libimu_filter_madgwick.so" to ""\n'}
+[17.140403] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include\n'}
+[17.140507] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include/imu_filter_madgwick\n'}
+[17.140617] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include/imu_filter_madgwick/imu_filter_ros.h\n'}
+[17.140689] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include/imu_filter_madgwick/imu_filter.h\n'}
+[17.140784] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include/imu_filter_madgwick/world_frame.h\n'}
+[17.140855] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include/imu_filter_madgwick/visibility_control.h\n'}
+[17.140924] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include/imu_filter_madgwick/stateless_orientation.h\n'}
+[17.140991] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/include/imu_filter_madgwick/base_node.hpp\n'}
+[17.141056] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/lib/imu_filter_madgwick/imu_filter_madgwick_node\n'}
+[17.141159] (imu_filter_madgwick) StdoutLine: {'line': b'-- Set runtime path of "/home/jg/bno055_hardware/install/imu_filter_madgwick/lib/imu_filter_madgwick/imu_filter_madgwick_node" to ""\n'}
+[17.141255] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/launch\n'}
+[17.141343] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/launch/imu_filter.launch.py\n'}
+[17.141449] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/launch/imu_filter_component.launch.py\n'}
+[17.141522] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/config\n'}
+[17.141621] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/config/imu_filter.yaml\n'}
+[17.141724] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/environment/library_path.sh\n'}
+[17.141822] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/environment/library_path.dsv\n'}
+[17.141893] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/ament_index/resource_index/package_run_dependencies/imu_filter_madgwick\n'}
+[17.141984] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/ament_index/resource_index/parent_prefix_path/imu_filter_madgwick\n'}
+[17.142083] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/environment/ament_prefix_path.sh\n'}
+[17.142183] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/environment/ament_prefix_path.dsv\n'}
+[17.142280] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/environment/path.sh\n'}
+[17.142390] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/environment/path.dsv\n'}
+[17.142484] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/local_setup.bash\n'}
+[17.142585] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/local_setup.sh\n'}
+[17.142687] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/local_setup.zsh\n'}
+[17.142781] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/local_setup.dsv\n'}
+[17.142872] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/package.dsv\n'}
+[17.142966] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/ament_index/resource_index/packages/imu_filter_madgwick\n'}
+[17.143063] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/ament_index/resource_index/rclcpp_components/imu_filter_madgwick\n'}
+[17.143193] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/cmake/export_imu_filter_madgwickExport.cmake\n'}
+[17.143295] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/cmake/export_imu_filter_madgwickExport-noconfig.cmake\n'}
+[17.143399] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[17.143514] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[17.143615] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[17.143721] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/cmake/imu_filter_madgwickConfig.cmake\n'}
+[17.143815] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/cmake/imu_filter_madgwickConfig-version.cmake\n'}
+[17.143910] (imu_filter_madgwick) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_filter_madgwick/share/imu_filter_madgwick/package.xml\n'}
+[17.145417] (imu_filter_madgwick) CommandEnded: {'returncode': 0}
+[17.156996] (-) TimerEvent: {}
+[17.182875] (imu_filter_madgwick) JobEnded: {'identifier': 'imu_filter_madgwick', 'rc': 0}
+[17.183291] (-) EventReactorShutdown: {}

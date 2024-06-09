@@ -41,9 +41,23 @@ def generate_launch_description():
         arguments=['-d', rviz_config_file]
     )
 
+    imu_filter_node = Node(
+         package='imu_filter_madgwick',
+        executable='imu_filter_madgwick_node',
+        name='imu_filter',
+        parameters=[
+            {'world_frame': 'enu'},
+            {'use_mag': True},
+            {'publish_tf': True},
+            {'fixed_frame': 'odom'}
+            ]
+        )
+    
+
     return LaunchDescription([
         robot_state_publisher_node,
         joint_state_publisher_node,
         imu_3d_visualization_node,
-        rviz2_node
+        rviz2_node,
+        imu_filter_node
     ])

@@ -1,0 +1,110 @@
+[0.009s] Invoking command in '/home/jg/bno055_hardware/build/rviz_imu_plugin': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble /usr/bin/cmake /home/jg/bno055_hardware/src/imu_tools/rviz_imu_plugin -DCMAKE_INSTALL_PREFIX=/home/jg/bno055_hardware/install/rviz_imu_plugin
+[0.046s] -- The C compiler identification is GNU 11.4.0
+[0.085s] -- The CXX compiler identification is GNU 11.4.0
+[0.089s] -- Detecting C compiler ABI info
+[0.136s] -- Detecting C compiler ABI info - done
+[0.141s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.141s] -- Detecting C compile features
+[0.141s] -- Detecting C compile features - done
+[0.143s] -- Detecting CXX compiler ABI info
+[0.194s] -- Detecting CXX compiler ABI info - done
+[0.202s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.202s] -- Detecting CXX compile features
+[0.203s] -- Detecting CXX compile features - done
+[0.206s] -- Found ament_cmake: 1.3.9 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.307s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.373s] -- Found message_filters: 4.3.4 (/opt/ros/humble/share/message_filters/cmake)
+[0.414s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.419s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.425s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.436s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.450s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.501s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.504s] -- Found rmw_fastrtps_cpp: 6.2.6 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.569s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[0.589s] -- Found FastRTPS: /opt/ros/humble/include  
+[0.624s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.632s] -- Looking for pthread.h
+[0.682s] -- Looking for pthread.h - found
+[0.682s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.730s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.731s] -- Found Threads: TRUE  
+[0.852s] -- Found rviz_common: 11.2.12 (/opt/ros/humble/share/rviz_common/cmake)
+[0.862s] -- Setting OGRE_DIR to: '/opt/ros/humble/share/rviz_ogre_vendor/cmake/../../../opt/rviz_ogre_vendor/lib/OGRE/cmake'
+[0.863s] -- Found OGRE
+[0.863s] --   static     : OFF
+[0.863s] --   components : HLMS;MeshLodGenerator;Overlay;Paging;Property;RTShaderSystem;Terrain;Volume
+[0.864s] --   plugins    : Plugin_BSPSceneManager;Plugin_OctreeSceneManager;Plugin_PCZSceneManager;Plugin_ParticleFX;RenderSystem_GL;RenderSystem_GL3Plus;Codec_STBI
+[0.864s] --   media      : /opt/ros/humble/opt/rviz_ogre_vendor/share/OGRE/Media
+[0.864s] -- OGRE_LIBRARIES: OgreHLMS;OgreMeshLodGenerator;OgreOverlay;OgrePaging;OgreProperty;OgreRTShaderSystem;OgreTerrain;OgreVolume;OgreMain
+[0.864s] -- OGRE_LIBRARY_DIRS: /opt/ros/humble/opt/rviz_ogre_vendor/lib
+[0.864s] -- OGRE_PLUGINS: Plugin_BSPSceneManager;Plugin_OctreeSceneManager;Plugin_PCZSceneManager;Plugin_ParticleFX;RenderSystem_GL;RenderSystem_GL3Plus;Codec_STBI
+[0.864s] -- OGRE_PLUGIN_DIR: /opt/ros/humble/opt/rviz_ogre_vendor/lib/OGRE
+[0.864s] -- rviz_ogre_vendor::OgreOverlay for IMPORTED_LOCATION_RELEASE: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreOverlay.so
+[0.864s] -- rviz_ogre_vendor::OgreOverlay for IMPORTED_LOCATION_DEBUG: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreOverlay.so
+[0.864s] -- rviz_ogre_vendor::OgreMain for IMPORTED_LOCATION_RELEASE: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreMain.so
+[0.864s] -- rviz_ogre_vendor::OgreMain for IMPORTED_LOCATION_DEBUG: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreMain.so
+[0.879s] -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.11") 
+[0.883s] -- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+[0.942s] -- Found X11: /usr/include   
+[0.942s] -- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so
+[0.991s] -- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so - found
+[0.991s] -- Looking for gethostbyname
+[1.043s] -- Looking for gethostbyname - found
+[1.043s] -- Looking for connect
+[1.086s] -- Looking for connect - found
+[1.086s] -- Looking for remove
+[1.130s] -- Looking for remove - found
+[1.130s] -- Looking for shmat
+[1.174s] -- Looking for shmat - found
+[1.174s] -- Looking for IceConnectionNumber in ICE
+[1.222s] -- Looking for IceConnectionNumber in ICE - found
+[1.224s] -- rviz_ogre_vendor::RenderSystem_GL for IMPORTED_LOCATION_RELEASE: _render_system_gl_static_library_abs-NOTFOUND
+[1.224s] -- rviz_ogre_vendor::RenderSystem_GL for IMPORTED_LOCATION_DEBUG: _render_system_gl_static_library_abs-NOTFOUND
+[1.285s] -- library: /usr/lib/x86_64-linux-gnu/libcurl.so
+[1.426s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[1.426s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[1.736s] -- Configuring done
+[1.777s] -- Generating done
+[1.778s] -- Build files have been written to: /home/jg/bno055_hardware/build/rviz_imu_plugin
+[1.788s] Invoked command in '/home/jg/bno055_hardware/build/rviz_imu_plugin' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble /usr/bin/cmake /home/jg/bno055_hardware/src/imu_tools/rviz_imu_plugin -DCMAKE_INSTALL_PREFIX=/home/jg/bno055_hardware/install/rviz_imu_plugin
+[1.789s] Invoking command in '/home/jg/bno055_hardware/build/rviz_imu_plugin': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble /usr/bin/cmake --build /home/jg/bno055_hardware/build/rviz_imu_plugin -- -j8 -l8
+[1.820s] [ 11%] [34m[1mAutomatic MOC for target rviz_imu_plugin[0m
+[2.212s] [ 11%] Built target rviz_imu_plugin_autogen
+[2.228s] [ 22%] [32mBuilding CXX object CMakeFiles/rviz_imu_plugin.dir/src/mag_display.cpp.o[0m
+[2.228s] [ 77%] [32mBuilding CXX object CMakeFiles/rviz_imu_plugin.dir/src/imu_orientation_visual.cpp.o[0m
+[2.228s] [ 66%] [32mBuilding CXX object CMakeFiles/rviz_imu_plugin.dir/src/imu_axes_visual.cpp.o[0m
+[2.228s] [ 66%] [32mBuilding CXX object CMakeFiles/rviz_imu_plugin.dir/src/imu_display.cpp.o[0m
+[2.228s] [ 66%] [32mBuilding CXX object CMakeFiles/rviz_imu_plugin.dir/rviz_imu_plugin_autogen/mocs_compilation.cpp.o[0m
+[2.229s] [ 77%] [32mBuilding CXX object CMakeFiles/rviz_imu_plugin.dir/src/imu_acc_visual.cpp.o[0m
+[2.229s] [ 88%] [32mBuilding CXX object CMakeFiles/rviz_imu_plugin.dir/src/mag_visual.cpp.o[0m
+[16.100s] [100%] [32m[1mLinking CXX shared library librviz_imu_plugin.so[0m
+[18.375s] [100%] Built target rviz_imu_plugin
+[18.383s] Invoked command in '/home/jg/bno055_hardware/build/rviz_imu_plugin' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble /usr/bin/cmake --build /home/jg/bno055_hardware/build/rviz_imu_plugin -- -j8 -l8
+[18.415s] Invoking command in '/home/jg/bno055_hardware/build/rviz_imu_plugin': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble /usr/bin/cmake --install /home/jg/bno055_hardware/build/rviz_imu_plugin
+[18.419s] -- Install configuration: ""
+[18.419s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/plugin_description.xml
+[18.419s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/environment/library_path.sh
+[18.419s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/environment/library_path.dsv
+[18.419s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/lib/librviz_imu_plugin.so
+[18.427s] -- Set runtime path of "/home/jg/bno055_hardware/install/rviz_imu_plugin/lib/librviz_imu_plugin.so" to ""
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/ament_index/resource_index/package_run_dependencies/rviz_imu_plugin
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/ament_index/resource_index/parent_prefix_path/rviz_imu_plugin
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/environment/ament_prefix_path.sh
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/environment/ament_prefix_path.dsv
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/environment/path.sh
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/environment/path.dsv
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/local_setup.bash
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/local_setup.sh
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/local_setup.zsh
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/local_setup.dsv
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/package.dsv
+[18.427s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/ament_index/resource_index/packages/rviz_imu_plugin
+[18.428s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/ament_index/resource_index/rviz_common__pluginlib__plugin/rviz_imu_plugin
+[18.428s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/cmake/ament_cmake_export_include_directories-extras.cmake
+[18.428s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/cmake/ament_cmake_export_libraries-extras.cmake
+[18.428s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/cmake/ament_cmake_export_dependencies-extras.cmake
+[18.428s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/cmake/rviz_imu_pluginConfig.cmake
+[18.428s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/cmake/rviz_imu_pluginConfig-version.cmake
+[18.428s] -- Installing: /home/jg/bno055_hardware/install/rviz_imu_plugin/share/rviz_imu_plugin/package.xml
+[18.429s] Invoked command in '/home/jg/bno055_hardware/build/rviz_imu_plugin' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble /usr/bin/cmake --install /home/jg/bno055_hardware/build/rviz_imu_plugin

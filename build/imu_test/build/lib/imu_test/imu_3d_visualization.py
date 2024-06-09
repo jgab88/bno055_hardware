@@ -11,8 +11,7 @@ from geometry_msgs.msg import TransformStamped, Quaternion, Point, PointStamped
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSReliabilityPolicy, QoSHistoryPolicy
 from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import JointState
-from tf2_ros import tf_transformations
-from tf_transformations import euler_from_quaternion
+from transforms3d.euler import quat2euler
 
 qos_profile = QoSProfile(
     reliability=QoSReliabilityPolicy.BEST_EFFORT,
@@ -29,16 +28,7 @@ class IMU3DVisualization(Node):
             'imu/data',
             self.imu_callback,
             qos_profile)
-        self.mag_subscription = self.create_subscription(
-            MagneticField,
-            'imu/mag',
-            self.mag_callback,
-            qos_profile)
         self.br = TransformBroadcaster(self)
-        self.mag_pub = self.create_publisher(
-            PoseStamped,
-            "imu/mag_pose",
-            10)
         self.pose_pub = self.create_publisher(
             PoseStamped,
             'imu/pose',
@@ -52,12 +42,6 @@ class IMU3DVisualization(Node):
         self.prev_time = self.get_clock().now().to_msg().sec + self.get_clock().now().to_msg().nanosec * 1e-9
         self.vel_z = 0.0
         self.pos_z = 0.0
-        self.alpha = 0.98  # Complementary filter coefficient
-
-        # Variables for gravity compensation
-        self.gravity_magnitude = 9.81  # Magnitude of gravity (m/s^2)
-        self.gravity_vector = None  # Gravity vector in the IMU's frame of reference
-        self.initial_orientation_set = False  # Flag to indicate if initial orientation is set
 
     def imu_callback(self, msg):
         # Create the rotational transform from base_link to imu_link_dynamic
@@ -73,24 +57,8 @@ class IMU3DVisualization(Node):
         # Broadcast the rotational transform
         self.br.sendTransform(t)
 
-        # Extract linear acceleration and angular velocity from the IMU message
-        ax = msg.linear_acceleration.x
-        ay = msg.linear_acceleration.y
+        # Extract linear acceleration from the IMU message
         az = msg.linear_acceleration.z
-        gx = msg.angular_velocity.x
-        gy = msg.angular_velocity.y
-        gz = msg.angular_velocity.z
-
-        # Set the initial orientation if not set
-        if not self.initial_orientation_set:
-            self.set_initial_orientation(msg.orientation)
-
-        # Compensate for gravity
-        if self.gravity_vector is not None:
-            gravity_x, gravity_y, gravity_z = self.gravity_vector
-            ax -= gravity_x
-            ay -= gravity_y
-            az -= gravity_z
 
         # Get the current timestamp
         current_time = self.get_clock().now().to_msg().sec + self.get_clock().now().to_msg().nanosec * 1e-9
@@ -99,10 +67,8 @@ class IMU3DVisualization(Node):
         # Integrate linear acceleration to obtain velocity
         self.vel_z += az * dt
 
-        # Apply Complementary Filter to estimate position
-        acc_pos = self.pos_z + self.vel_z * dt
-        gyro_pos = self.pos_z + gz * dt
-        self.pos_z = self.alpha * gyro_pos + (1 - self.alpha) * acc_pos
+        # Integrate velocity to obtain position
+        self.pos_z += self.vel_z * dt
 
         # Update the previous timestamp
         self.prev_time = current_time
@@ -138,6 +104,8 @@ class IMU3DVisualization(Node):
         pose_msg = PoseStamped()
         pose_msg.header.stamp = self.get_clock().now().to_msg()
         pose_msg.header.frame_id = 'imu_link'
+        pose_msg.pose.position.x = imu_position.point.x
+        pose_msg.pose.position.y = imu_position.point.y
         pose_msg.pose.position.z = imu_position.point.z
         pose_msg.pose.orientation = msg.orientation
         self.pose_pub.publish(pose_msg)
@@ -146,43 +114,10 @@ class IMU3DVisualization(Node):
         point_msg = PointStamped()
         point_msg.header.stamp = self.get_clock().now().to_msg()
         point_msg.header.frame_id = 'imu_link'
+        point_msg.point.x = imu_position.point.x
+        point_msg.point.y = imu_position.point.y
         point_msg.point.z = imu_position.point.z
         self.point_pub.publish(point_msg)
-
-    def mag_callback(self, msg):
-        # Process the magnetometer data
-        mag_x = msg.magnetic_field.x
-        mag_y = msg.magnetic_field.y
-        mag_z = msg.magnetic_field.z
-
-        # Create a pose marker to represent the magnetic field direction
-        pose_marker = PoseStamped()
-        pose_marker.header.frame_id = "imu_link"
-        pose_marker.header.stamp = self.get_clock().now().to_msg()
-        pose_marker.pose.position.x = 0.0
-        pose_marker.pose.position.y = 0.0
-        pose_marker.pose.position.z = 0.0
-        pose_marker.pose.orientation.x = 0.0
-        pose_marker.pose.orientation.y = 0.0
-        pose_marker.pose.orientation.z = mag_z
-        pose_marker.pose.orientation.w = 1.0
-
-        # Publish the pose marker
-        self.mag_pub.publish(pose_marker)
-
-    def set_initial_orientation(self, orientation):
-        # Convert quaternion to Euler angles
-        x, y, z, w = orientation.x, orientation.y, orientation.z, orientation.w
-        roll, pitch, yaw = euler_from_quaternion([x, y, z, w])
-
-        # Estimate the gravity vector in the IMU's frame of reference
-        self.gravity_vector = (
-            self.gravity_magnitude * math.sin(pitch),
-            -self.gravity_magnitude * math.sin(roll) * math.cos(pitch),
-            -self.gravity_magnitude * math.cos(roll) * math.cos(pitch)
-        )
-
-        self.initial_orientation_set = True
 
 def main(args=None):
     rclpy.init(args=args)
