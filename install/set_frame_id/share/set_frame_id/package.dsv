@@ -1,0 +1,6 @@
+source;share/set_frame_id/hook/pythonpath.ps1
+source;share/set_frame_id/hook/pythonpath.dsv
+source;share/set_frame_id/hook/pythonpath.sh
+source;share/set_frame_id/hook/ament_prefix_path.ps1
+source;share/set_frame_id/hook/ament_prefix_path.dsv
+source;share/set_frame_id/hook/ament_prefix_path.sh

@@ -13,7 +13,6 @@
 #include <Arduino.h>
 #include <string.h>
 
-
 #define LED_PIN 13
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){return false;}}
 #define EXECUTE_EVERY_N_MS(MS, X) do { \
@@ -33,7 +32,6 @@ sensor_msgs__msg__Imu imu_msg;
 sensor_msgs__msg__MagneticField mag_msg;
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
 
-
 bool micro_ros_init_successful;
 
 enum states {
@@ -42,7 +40,6 @@ enum states {
   AGENT_CONNECTED,
   AGENT_DISCONNECTED
 } state;
-
 
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
@@ -70,22 +67,12 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
     mag_msg.magnetic_field.y = mag.y();
     mag_msg.magnetic_field.z = mag.z();
 
-    // Add timestamps and frame_id 
+    // Add timestamps
     imu_msg.header.stamp.sec = micros() / 1000000;
     imu_msg.header.stamp.nanosec = (micros() % 1000000) * 1000;
 
-    //const char imu_frame_id[] = "imu_link";
-
-    //strncpy(imu_msg.header.frame_id.data, imu_frame_id, imu_msg.header.frame_id.capacity);
-    //imu_msg.header.frame_id.data[imu_msg.header.frame_id.capacity - 1] = '\0'; // Ensure null termination
-
     mag_msg.header.stamp.sec = micros() / 1000000;
     mag_msg.header.stamp.nanosec = (micros() % 1000000) * 1000;
-
-    //const char mag_frame_id[] = "imu_link";
-
-    //strncpy(mag_msg.header.frame_id.data, mag_frame_id, mag_msg.header.frame_id.capacity);
-    //mag_msg.header.frame_id.data[mag_msg.header.frame_id.capacity - 1] = '\0'; // Ensure null termination
 
     delay(100);
 
@@ -236,7 +223,6 @@ void setup()
 
   Serial.println("Calibration complete!");
   delay(200);
-
 }
 
 void loop()
@@ -271,6 +257,4 @@ void loop()
   } else {
     digitalWrite(LED_PIN, 0);
   }
-
-
 }

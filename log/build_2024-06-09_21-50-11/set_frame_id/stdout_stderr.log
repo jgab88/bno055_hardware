@@ -1,0 +1,35 @@
+running egg_info
+creating ../../build/set_frame_id/set_frame_id.egg-info
+writing ../../build/set_frame_id/set_frame_id.egg-info/PKG-INFO
+writing dependency_links to ../../build/set_frame_id/set_frame_id.egg-info/dependency_links.txt
+writing entry points to ../../build/set_frame_id/set_frame_id.egg-info/entry_points.txt
+writing requirements to ../../build/set_frame_id/set_frame_id.egg-info/requires.txt
+writing top-level names to ../../build/set_frame_id/set_frame_id.egg-info/top_level.txt
+writing manifest file '../../build/set_frame_id/set_frame_id.egg-info/SOURCES.txt'
+reading manifest file '../../build/set_frame_id/set_frame_id.egg-info/SOURCES.txt'
+writing manifest file '../../build/set_frame_id/set_frame_id.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/jg/bno055_hardware/build/set_frame_id/build
+creating /home/jg/bno055_hardware/build/set_frame_id/build/lib
+creating /home/jg/bno055_hardware/build/set_frame_id/build/lib/set_frame_id
+copying set_frame_id/set_frame_id_node.py -> /home/jg/bno055_hardware/build/set_frame_id/build/lib/set_frame_id
+copying set_frame_id/__init__.py -> /home/jg/bno055_hardware/build/set_frame_id/build/lib/set_frame_id
+running install
+running install_lib
+creating /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id
+copying /home/jg/bno055_hardware/build/set_frame_id/build/lib/set_frame_id/set_frame_id_node.py -> /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id
+copying /home/jg/bno055_hardware/build/set_frame_id/build/lib/set_frame_id/__init__.py -> /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id
+byte-compiling /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id/set_frame_id_node.py to set_frame_id_node.cpython-310.pyc
+byte-compiling /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/jg/bno055_hardware/install/set_frame_id/share/ament_index
+creating /home/jg/bno055_hardware/install/set_frame_id/share/ament_index/resource_index
+creating /home/jg/bno055_hardware/install/set_frame_id/share/ament_index/resource_index/packages
+copying resource/set_frame_id -> /home/jg/bno055_hardware/install/set_frame_id/share/ament_index/resource_index/packages
+copying package.xml -> /home/jg/bno055_hardware/install/set_frame_id/share/set_frame_id
+running install_egg_info
+Copying ../../build/set_frame_id/set_frame_id.egg-info to /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id-0.0.0-py3.10.egg-info
+running install_scripts
+Installing set_frame_id_node script to /home/jg/bno055_hardware/install/set_frame_id/lib/set_frame_id
+writing list of installed files to '/home/jg/bno055_hardware/build/set_frame_id/install.log'

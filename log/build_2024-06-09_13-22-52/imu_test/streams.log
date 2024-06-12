@@ -1,0 +1,22 @@
+[0.412s] Invoking command in '/home/jg/bno055_hardware/src/imu_test': PYTHONPATH=/home/jg/bno055_hardware/build/imu_test/prefix_override:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/imu_test build --build-base /home/jg/bno055_hardware/build/imu_test/build install --record /home/jg/bno055_hardware/build/imu_test/install.log --single-version-externally-managed install_data
+[0.569s] running egg_info
+[0.569s] writing ../../build/imu_test/imu_test.egg-info/PKG-INFO
+[0.569s] writing dependency_links to ../../build/imu_test/imu_test.egg-info/dependency_links.txt
+[0.570s] writing entry points to ../../build/imu_test/imu_test.egg-info/entry_points.txt
+[0.570s] writing requirements to ../../build/imu_test/imu_test.egg-info/requires.txt
+[0.570s] writing top-level names to ../../build/imu_test/imu_test.egg-info/top_level.txt
+[0.571s] reading manifest file '../../build/imu_test/imu_test.egg-info/SOURCES.txt'
+[0.572s] writing manifest file '../../build/imu_test/imu_test.egg-info/SOURCES.txt'
+[0.572s] running build
+[0.572s] running build_py
+[0.572s] running install
+[0.572s] running install_lib
+[0.573s] running install_data
+[0.573s] copying launch/imu_3d_visualization.launch.py -> /home/jg/bno055_hardware/install/imu_test/share/imu_test
+[0.573s] running install_egg_info
+[0.574s] removing '/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages/imu_test-0.0.0-py3.10.egg-info' (and everything under it)
+[0.575s] Copying ../../build/imu_test/imu_test.egg-info to /home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages/imu_test-0.0.0-py3.10.egg-info
+[0.575s] running install_scripts
+[0.589s] Installing imu_3d_visualization script to /home/jg/bno055_hardware/install/imu_test/lib/imu_test
+[0.590s] writing list of installed files to '/home/jg/bno055_hardware/build/imu_test/install.log'
+[0.608s] Invoked command in '/home/jg/bno055_hardware/src/imu_test' returned '0': PYTHONPATH=/home/jg/bno055_hardware/build/imu_test/prefix_override:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/imu_test build --build-base /home/jg/bno055_hardware/build/imu_test/build install --record /home/jg/bno055_hardware/build/imu_test/install.log --single-version-externally-managed install_data
