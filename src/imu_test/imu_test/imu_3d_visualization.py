@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import TransformStamped, PoseStamped
 from nav_msgs.msg import Odometry
@@ -12,12 +13,18 @@ class IMU3DVisualization(Node):
         self.br = TransformBroadcaster(self)
         self.pose_pub = self.create_publisher(PoseStamped, 'imu/pose', 10)
 
+        qos_profile = QoSProfile(
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            depth=10
+        )
+
         # Subscribe to the filtered odometry topic from the Madgwick filter
         self.odom_sub = self.create_subscription(
             Odometry,
             '/imu/data',
             self.odom_callback,
-            10)
+            qos_profile
+        )
 
     def odom_callback(self, msg):
         # Print received odometry message
