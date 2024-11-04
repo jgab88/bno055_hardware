@@ -140,11 +140,38 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
         publish_debug("Warning: Invalid quaternion data");
         return;
     }
-    
+
+    // Calculate encoder-based odometry
+    long currentCount = encoderCount;
+    float deltaTime = (currentTime - previousTime) / 1000000.0; // Convert to seconds
+    long deltaTicks = currentCount - previousCount;
+    float distance = deltaTicks * METERS_PER_TICK;
+    float velocity = distance / deltaTime;
+
+    snprintf(debug_buf, sizeof(debug_buf), 
+             "Odom calc: count=%ld delta=%ld dist=%.3f vel=%.3f rot=%.2f,%.2f,%.2f,%.2f", 
+             currentCount, deltaTicks, distance, velocity,
+             quat.w(), quat.x(), quat.y(), quat.z());
+    publish_debug(debug_buf);
+
+    // Get fresh timestamp
+    currentTime = micros();
+    uint32_t sec = currentTime / 1000000;
+    uint32_t nanosec = (currentTime % 1000000) * 1000;
+
+    // Update all message headers with timestamps
+    imu_msg.header.stamp.sec = sec;
+    imu_msg.header.stamp.nanosec = nanosec;
+    mag_msg.header.stamp.sec = sec;
+    mag_msg.header.stamp.nanosec = nanosec;
+    odom_msg.header.stamp.sec = sec;
+    odom_msg.header.stamp.nanosec = nanosec;
+
+    // Update IMU message with quaternion values
+    imu_msg.orientation.w = quat.w();
     imu_msg.orientation.x = quat.x();
     imu_msg.orientation.y = quat.y();
     imu_msg.orientation.z = quat.z();
-    imu_msg.orientation.w = quat.w();
 
     imu::Vector<3> ang_vel = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
     imu_msg.angular_velocity.x = ang_vel.x();
@@ -162,71 +189,59 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
     mag_msg.magnetic_field.y = mag.y();
     mag_msg.magnetic_field.z = mag.z();
 
-    // Calculate encoder-based odometry
-    long currentCount = encoderCount;
-    float deltaTime = (currentTime - previousTime) / 1000000.0; // Convert to seconds
-    long deltaTicks = currentCount - previousCount;
-    float distance = deltaTicks * METERS_PER_TICK;
-    float velocity = distance / deltaTime;
-
-    snprintf(debug_buf, sizeof(debug_buf), "Odom calc: count=%ld delta=%ld dist=%.3f vel=%.3f", 
-             currentCount, deltaTicks, distance, velocity);
-    publish_debug(debug_buf);
-
-    // Get fresh timestamp
-    currentTime = micros();
-    uint32_t sec = currentTime / 1000000;
-    uint32_t nanosec = (currentTime % 1000000) * 1000;
-
-    // Update all headers with timestamps
-    imu_msg.header.stamp.sec = sec;
-    imu_msg.header.stamp.nanosec = nanosec;
-    mag_msg.header.stamp.sec = sec;
-    mag_msg.header.stamp.nanosec = nanosec;
-    odom_msg.header.stamp.sec = sec;
-    odom_msg.header.stamp.nanosec = nanosec;
-
-    // Update odometry message
+    // Update odometry with IMU fusion
     odom_msg.pose.pose.position.x = currentCount * METERS_PER_TICK;
     odom_msg.pose.pose.position.y = 0.0;
     odom_msg.pose.pose.position.z = 0.0;
-    
-    odom_msg.pose.pose.orientation.x = 0.0;
-    odom_msg.pose.pose.orientation.y = 0.0;
-    odom_msg.pose.pose.orientation.z = 0.0;
-    odom_msg.pose.pose.orientation.w = 1.0;
-    
+
+    // Copy orientation from IMU to odometry
+    odom_msg.pose.pose.orientation.w = quat.w();
+    odom_msg.pose.pose.orientation.x = quat.x();
+    odom_msg.pose.pose.orientation.y = quat.y();
+    odom_msg.pose.pose.orientation.z = quat.z();
+
+    // Set velocities
     odom_msg.twist.twist.linear.x = velocity;
     odom_msg.twist.twist.linear.y = 0.0;
     odom_msg.twist.twist.linear.z = 0.0;
     
-    odom_msg.twist.twist.angular.x = 0.0;
-    odom_msg.twist.twist.angular.y = 0.0;
-    odom_msg.twist.twist.angular.z = 0.0;
+    odom_msg.twist.twist.angular.x = ang_vel.x();
+    odom_msg.twist.twist.angular.y = ang_vel.y();
+    odom_msg.twist.twist.angular.z = ang_vel.z();
 
-    // Initialize covariance matrices
+    // Update covariance matrices
     for(size_t i = 0; i < 36; i++) {
         odom_msg.pose.covariance[i] = 0.0;
         odom_msg.twist.covariance[i] = 0.0;
     }
-    odom_msg.pose.covariance[0] = 0.01;   // x
-    odom_msg.pose.covariance[7] = 0.01;   // y
-    odom_msg.pose.covariance[14] = 0.01;  // z
-    odom_msg.pose.covariance[21] = 0.01;  // rotation about X axis
-    odom_msg.pose.covariance[28] = 0.01;  // rotation about Y axis
-    odom_msg.pose.covariance[35] = 0.01;  // rotation about Z axis
+    
+    // Position covariance
+    odom_msg.pose.covariance[0] = 0.01;   // x position
+    odom_msg.pose.covariance[7] = 0.1;    // y position (higher uncertainty)
+    odom_msg.pose.covariance[14] = 0.1;   // z position
+    odom_msg.pose.covariance[21] = 0.01;  // roll
+    odom_msg.pose.covariance[28] = 0.01;  // pitch
+    odom_msg.pose.covariance[35] = 0.01;  // yaw
 
-    snprintf(debug_buf, sizeof(debug_buf), "Publishing odom: x=%.3f v=%.3f", 
-             odom_msg.pose.pose.position.x, odom_msg.twist.twist.linear.x);
+    // Velocity covariance
+    odom_msg.twist.covariance[0] = 0.01;  // linear x velocity
+    odom_msg.twist.covariance[7] = 0.1;   // linear y velocity
+    odom_msg.twist.covariance[14] = 0.1;  // linear z velocity
+    odom_msg.twist.covariance[21] = 0.01; // angular x velocity
+    odom_msg.twist.covariance[28] = 0.01; // angular y velocity
+    odom_msg.twist.covariance[35] = 0.01; // angular z velocity
+
+    // Debug output with yaw angle
+    float yaw = atan2(2.0 * (quat.w()*quat.z() + quat.x()*quat.y()),
+                      1.0 - 2.0 * (quat.y()*quat.y() + quat.z()*quat.z()));
+    snprintf(debug_buf, sizeof(debug_buf), 
+             "Publishing: x=%.3f v=%.3f yaw=%.2f", 
+             odom_msg.pose.pose.position.x, 
+             odom_msg.twist.twist.linear.x,
+             yaw);
     publish_debug(debug_buf);
 
-    // Pre-publish verification
-    snprintf(debug_buf, sizeof(debug_buf), "Pre-pub check: frame_id=%s child=%s", 
-             odom_msg.header.frame_id.data, 
-             odom_msg.child_frame_id.data);
-    publish_debug(debug_buf);
-
-    // Publish messages with error checking
+    // Publish all messages
     rc = rcl_publish(&imu_publisher, &imu_msg, NULL);
     if (rc != RCL_RET_OK) {
         publish_debug("Failed to publish IMU data");
@@ -241,7 +256,6 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
     if (rc != RCL_RET_OK) {
         const char* error_string = rcutils_get_error_string().str;
         rcutils_reset_error();
-        
         snprintf(debug_buf, sizeof(debug_buf), 
                 "ODOM publish error %ld: %s", 
                 (long)rc, error_string);
