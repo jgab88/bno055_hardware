@@ -15,6 +15,10 @@
 #include <SPI.h>
 #include <Arduino.h>
 #include <string.h>
+#include <std_msgs/msg/float32.h> // Sonar height message
+
+#define TRIG_PIN 9  // Sonar Trigger Pin
+#define ECHO_PIN 10 // Sonar Echo Pin
 
 #define LED_PIN 13
 #define RCCHECK(fn)              \
@@ -66,12 +70,14 @@ rcl_publisher_t mag_publisher;
 rcl_publisher_t wheel_odom_publisher;
 rcl_publisher_t wheel_vel_publisher;
 rcl_publisher_t debug_publisher;
+rcl_publisher_t sonar_height_publisher;
 
 sensor_msgs__msg__Imu imu_msg;
 sensor_msgs__msg__MagneticField mag_msg;
 nav_msgs__msg__Odometry wheel_odom_msg;
 geometry_msgs__msg__TwistWithCovarianceStamped wheel_vel_msg;
 std_msgs__msg__String debug_msg;
+std_msgs__msg__Float32 sonar_height_msg;
 
 char debug_string_buffer[100];
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
@@ -83,6 +89,22 @@ enum states
   AGENT_CONNECTED,
   AGENT_DISCONNECTED
 } state;
+
+// Function to measure distance using HC-SR04
+float measureSonarDistance() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  // Convert to meters (speed of sound = 343m/s)
+  float distance = (duration * 0.000343) / 2.0;
+  
+  // Limit the range to reasonable values (0.02m to 4m)
+  return constrain(distance, 0.02, 4.0);
+}
 
 // Debug function
 void publish_debug(const char *msg)
@@ -150,6 +172,10 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
         rcl_ret_t rc;
         char debug_buf[100];
         
+        // Measure sonar height
+        float height = measureSonarDistance();
+        sonar_height_msg.data = height;
+
         // Get IMU data
         imu::Quaternion quat = bno.getQuat();
         if (quat.w() == 0 && quat.x() == 0 && quat.y() == 0 && quat.z() == 0) {
@@ -242,7 +268,8 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
         snprintf(debug_buf, sizeof(debug_buf), 
                 "Publishing - pos: %.3f m, vel: %.3f m/s", 
                 wheel_odom_msg.pose.pose.position.x,
-                wheel_vel_msg.twist.twist.linear.x);
+                wheel_vel_msg.twist.twist.linear.x,
+                height);
         publish_debug(debug_buf);
 
         // Publish all messages
@@ -264,6 +291,11 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
         rc = rcl_publish(&wheel_vel_publisher, &wheel_vel_msg, NULL);
         if (rc != RCL_RET_OK) {
             publish_debug("Failed to publish wheel velocity");
+        }
+
+        rc = rcl_publish(&sonar_height_publisher, &sonar_height_msg, NULL);
+        if (rc != RCL_RET_OK) {
+            publish_debug("Failed to publish sonar height");
         }
 
         // Update previous values
@@ -310,6 +342,13 @@ bool create_entities()
       &node,
       ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
       "teensy_debug"));
+
+      // Create sonar height publisher
+  RCCHECK(rclc_publisher_init_default(
+      &sonar_height_publisher,
+      &node,
+      ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Float32),
+      "sonar/height"));
 
   // Create timer
   const unsigned int timer_timeout = 100;
@@ -364,6 +403,13 @@ void destroy_entities() {
         delay(10);
     }
 
+    // Clean up sonar publisher
+    rc = rcl_publisher_fini(&sonar_height_publisher, &node);
+    if (rc != RCL_RET_OK) {
+        publish_debug("Failed to cleanup sonar publisher");
+        delay(10);
+    }
+
     // Final debug message before we destroy debug publisher
     publish_debug("All other publishers cleaned up, destroying debug publisher now");
     delay(20); // Slightly longer delay for final message
@@ -388,6 +434,10 @@ void setup()
   pinMode(encoderPinA, INPUT_PULLUP);
   pinMode(encoderPinB, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(encoderPinA), encoderISR, CHANGE);
+
+  // Setup HC-SR04 pins
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
 
   state = WAITING_AGENT;
 
