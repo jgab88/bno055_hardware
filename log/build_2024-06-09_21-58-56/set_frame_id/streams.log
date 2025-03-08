@@ -1,0 +1,24 @@
+[0.412s] Invoking command in '/home/jg/bno055_hardware/src/set_frame_id': PYTHONPATH=/home/jg/bno055_hardware/build/set_frame_id/prefix_override:/home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/set_frame_id build --build-base /home/jg/bno055_hardware/build/set_frame_id/build install --record /home/jg/bno055_hardware/build/set_frame_id/install.log --single-version-externally-managed install_data
+[0.566s] running egg_info
+[0.567s] writing ../../build/set_frame_id/set_frame_id.egg-info/PKG-INFO
+[0.567s] writing dependency_links to ../../build/set_frame_id/set_frame_id.egg-info/dependency_links.txt
+[0.567s] writing entry points to ../../build/set_frame_id/set_frame_id.egg-info/entry_points.txt
+[0.567s] writing requirements to ../../build/set_frame_id/set_frame_id.egg-info/requires.txt
+[0.567s] writing top-level names to ../../build/set_frame_id/set_frame_id.egg-info/top_level.txt
+[0.569s] reading manifest file '../../build/set_frame_id/set_frame_id.egg-info/SOURCES.txt'
+[0.570s] writing manifest file '../../build/set_frame_id/set_frame_id.egg-info/SOURCES.txt'
+[0.570s] running build
+[0.570s] running build_py
+[0.570s] copying set_frame_id/set_frame_id_node.py -> /home/jg/bno055_hardware/build/set_frame_id/build/lib/set_frame_id
+[0.570s] running install
+[0.570s] running install_lib
+[0.571s] copying /home/jg/bno055_hardware/build/set_frame_id/build/lib/set_frame_id/set_frame_id_node.py -> /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id
+[0.572s] byte-compiling /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id/set_frame_id_node.py to set_frame_id_node.cpython-310.pyc
+[0.572s] running install_data
+[0.572s] running install_egg_info
+[0.573s] removing '/home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id-0.0.0-py3.10.egg-info' (and everything under it)
+[0.574s] Copying ../../build/set_frame_id/set_frame_id.egg-info to /home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages/set_frame_id-0.0.0-py3.10.egg-info
+[0.574s] running install_scripts
+[0.588s] Installing set_frame_id_node script to /home/jg/bno055_hardware/install/set_frame_id/lib/set_frame_id
+[0.588s] writing list of installed files to '/home/jg/bno055_hardware/build/set_frame_id/install.log'
+[0.608s] Invoked command in '/home/jg/bno055_hardware/src/set_frame_id' returned '0': PYTHONPATH=/home/jg/bno055_hardware/build/set_frame_id/prefix_override:/home/jg/bno055_hardware/install/set_frame_id/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/set_frame_id build --build-base /home/jg/bno055_hardware/build/set_frame_id/build install --record /home/jg/bno055_hardware/build/set_frame_id/install.log --single-version-externally-managed install_data

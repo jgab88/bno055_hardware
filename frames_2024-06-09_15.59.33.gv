@@ -1,0 +1,8 @@
+digraph G {
+"base_link" -> "imu_link_dynamic"[label=" Broadcaster: default_authority\nAverage rate: 9.645\nBuffer length: 4.977\nMost recent transform: 1717966773.796412\nOldest transform: 1717966768.819658\n"];
+"base_link" -> "imu_link"[label=" Broadcaster: default_authority\nAverage rate: 9.644\nBuffer length: 4.977\nMost recent transform: 1717966773.797386\nOldest transform: 1717966768.820109\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1717966773.9055395"[ shape=plaintext ] ;
+}->"base_link";
+}

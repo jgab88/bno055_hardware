@@ -9,8 +9,11 @@ setup.py
 ../../build/imu_test/imu_test.egg-info/top_level.txt
 ../../build/imu_test/imu_test.egg-info/zip-safe
 imu_test/__init__.py
+imu_test/ground_speed_simulator.py
+imu_test/height_simulator.py
 imu_test/imu_3d_visualization.py
 launch/imu_3d_visualization.launch.py
+launch/imu_test.launch.py
 resource/imu_test
 rviz/robotmodel.rviz
 test/test_copyright.py

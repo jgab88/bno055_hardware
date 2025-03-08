@@ -26,6 +26,8 @@ setup(
     entry_points={
         'console_scripts': [
             'imu_3d_visualization = imu_test.imu_3d_visualization:main',
+            'height_simulator = imu_test.height_simulator:main',
+            'ground_speed_simulator = imu_test.ground_speed_simulator:main',
         ],
     },
 )

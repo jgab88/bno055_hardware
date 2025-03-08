@@ -1,0 +1,2 @@
+Invoking command in '/home/jg/bno055_hardware/build/set_frame_id': /usr/bin/cmake /home/jg/bno055_hardware/src/set_frame_id -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/jg/bno055_hardware/install/set_frame_id
+Invoked command in '/home/jg/bno055_hardware/build/set_frame_id' returned '1': /usr/bin/cmake /home/jg/bno055_hardware/src/set_frame_id -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/jg/bno055_hardware/install/set_frame_id

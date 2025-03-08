@@ -1,3 +1,5 @@
 [console_scripts]
+ground_speed_simulator = imu_test.ground_speed_simulator:main
+height_simulator = imu_test.height_simulator:main
 imu_3d_visualization = imu_test.imu_3d_visualization:main
 

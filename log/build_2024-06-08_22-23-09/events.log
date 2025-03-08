@@ -1,0 +1,12 @@
+[0.000000] (-) TimerEvent: {}
+[0.000434] (-) JobUnselected: {'identifier': 'imu_complementary_filter'}
+[0.000543] (-) JobUnselected: {'identifier': 'imu_filter_madgwick'}
+[0.000564] (-) JobUnselected: {'identifier': 'imu_test'}
+[0.000578] (-) JobUnselected: {'identifier': 'micro_ros_agent'}
+[0.000593] (-) JobUnselected: {'identifier': 'micro_ros_msgs'}
+[0.000683] (-) JobUnselected: {'identifier': 'micro_ros_setup'}
+[0.000703] (-) JobUnselected: {'identifier': 'rviz_imu_plugin'}
+[0.000719] (imu_tools) JobQueued: {'identifier': 'imu_tools', 'dependencies': OrderedDict([('imu_complementary_filter', '/home/jg/bno055_hardware/install/imu_complementary_filter'), ('imu_filter_madgwick', '/home/jg/bno055_hardware/install/imu_filter_madgwick'), ('rviz_imu_plugin', '/home/jg/bno055_hardware/install/rviz_imu_plugin')])}
+[0.000742] (imu_tools) JobStarted: {'identifier': 'imu_tools'}
+[0.009555] (imu_tools) JobEnded: {'identifier': 'imu_tools', 'rc': 1}
+[0.020106] (-) EventReactorShutdown: {}

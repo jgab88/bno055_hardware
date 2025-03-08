@@ -1,0 +1,237 @@
+[0.000000] (-) TimerEvent: {}
+[0.000424] (-) JobUnselected: {'identifier': 'imu_filter_madgwick'}
+[0.000485] (-) JobUnselected: {'identifier': 'imu_test'}
+[0.000507] (-) JobUnselected: {'identifier': 'imu_tools'}
+[0.000522] (-) JobUnselected: {'identifier': 'micro_ros_agent'}
+[0.000592] (-) JobUnselected: {'identifier': 'micro_ros_msgs'}
+[0.000611] (-) JobUnselected: {'identifier': 'micro_ros_setup'}
+[0.000636] (-) JobUnselected: {'identifier': 'rviz_imu_plugin'}
+[0.000653] (imu_complementary_filter) JobQueued: {'identifier': 'imu_complementary_filter', 'dependencies': OrderedDict()}
+[0.000671] (imu_complementary_filter) JobStarted: {'identifier': 'imu_complementary_filter'}
+[0.006962] (imu_complementary_filter) JobProgress: {'identifier': 'imu_complementary_filter', 'progress': 'cmake'}
+[0.007097] (imu_complementary_filter) Command: {'cmd': ['/usr/bin/cmake', '/home/jg/bno055_hardware/src/imu_tools/imu_complementary_filter', '-DCMAKE_INSTALL_PREFIX=/home/jg/bno055_hardware/install/imu_complementary_filter'], 'cwd': '/home/jg/bno055_hardware/build/imu_complementary_filter', 'env': OrderedDict([('LINOROBOT2_BASE', '4wd'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jg'), ('SSH_CLIENT', '192.168.0.52 52014 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/jg/bno055_hardware/install/rviz_imu_plugin/lib:/home/jg/bno055_hardware/install/imu_filter_madgwick/lib:/home/jg/bno055_hardware/install/imu_complementary_filter/lib:/home/jg/linorobot2_ws/install/micro_ros_agent/lib:/home/jg/linorobot2_ws/install/micro_ros_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/jg'), ('OLDPWD', '/home/jg/bno055_hardware/src'), ('TERM_PROGRAM_VERSION', '1.89.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-88463016-4269-471d-ab5f-fa9b64ee600d.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/jg/bno055_hardware/install:/home/jg/linorobot2_ws/install:/home/jg/sam_bot_description/install:/home/jg/turtlebot3_ws/install:/home/jg/pointcloud_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jg'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/models:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/jg/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jg/.platformio/penv/bin:/home/jg/.platformio/penv/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-0b768504e6.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_test:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/jg/bno055_hardware/build/imu_complementary_filter'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.0.52 52014 192.168.0.178 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LINOROBOT2_DEPTH_SENSOR', 'realsense'), ('PYTHONPATH', '/home/jg/bno055_hardware/build/imu_test:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:/home/jg/linorobot2_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/home/jg/linorobot2_ws/install/linorobot2_gazebo/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('LINOROBOT2_LASER_SENSOR', 'rplidar'), ('CMAKE_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble')]), 'shell': False}
+[0.045226] (imu_complementary_filter) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.086136] (imu_complementary_filter) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.090653] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.099763] (-) TimerEvent: {}
+[0.150995] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.160103] (imu_complementary_filter) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.160338] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.161169] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.164217] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.199923] (-) TimerEvent: {}
+[0.215775] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.221230] (imu_complementary_filter) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.221480] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.221560] (imu_complementary_filter) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.223778] (imu_complementary_filter) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.9 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.300007] (-) TimerEvent: {}
+[0.325404] (imu_complementary_filter) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.389083] (imu_complementary_filter) StdoutLine: {'line': b'-- Found geometry_msgs: 4.2.4 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[0.400135] (-) TimerEvent: {}
+[0.421087] (imu_complementary_filter) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.425114] (imu_complementary_filter) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.431394] (imu_complementary_filter) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.441369] (imu_complementary_filter) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.455258] (imu_complementary_filter) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.500250] (-) TimerEvent: {}
+[0.534621] (imu_complementary_filter) StdoutLine: {'line': b'-- Found message_filters: 4.3.4 (/opt/ros/humble/share/message_filters/cmake)\n'}
+[0.579582] (imu_complementary_filter) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.581936] (imu_complementary_filter) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.6 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.600362] (-) TimerEvent: {}
+[0.646498] (imu_complementary_filter) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[0.666412] (imu_complementary_filter) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[0.700500] (-) TimerEvent: {}
+[0.701300] (imu_complementary_filter) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.709619] (imu_complementary_filter) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.755668] (imu_complementary_filter) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[0.755946] (imu_complementary_filter) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.800624] (-) TimerEvent: {}
+[0.809712] (imu_complementary_filter) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[0.810955] (imu_complementary_filter) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[0.900720] (-) TimerEvent: {}
+[0.903949] (imu_complementary_filter) StdoutLine: {'line': b'-- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[0.963402] (imu_complementary_filter) StdoutLine: {'line': b'-- Found tf2: 0.25.7 (/opt/ros/humble/share/tf2/cmake)\n'}
+[0.974197] (imu_complementary_filter) StdoutLine: {'line': b'-- Found tf2_ros: 0.25.7 (/opt/ros/humble/share/tf2_ros/cmake)\n'}
+[1.000783] (-) TimerEvent: {}
+[1.101016] (-) TimerEvent: {}
+[1.201301] (-) TimerEvent: {}
+[1.250903] (imu_complementary_filter) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.264080] (imu_complementary_filter) StdoutLine: {'line': b'-- Generating done\n'}
+[1.265824] (imu_complementary_filter) StdoutLine: {'line': b'-- Build files have been written to: /home/jg/bno055_hardware/build/imu_complementary_filter\n'}
+[1.275243] (imu_complementary_filter) CommandEnded: {'returncode': 0}
+[1.275710] (imu_complementary_filter) JobProgress: {'identifier': 'imu_complementary_filter', 'progress': 'build'}
+[1.276198] (imu_complementary_filter) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/jg/bno055_hardware/build/imu_complementary_filter', '--', '-j8', '-l8'], 'cwd': '/home/jg/bno055_hardware/build/imu_complementary_filter', 'env': OrderedDict([('LINOROBOT2_BASE', '4wd'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jg'), ('SSH_CLIENT', '192.168.0.52 52014 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/jg/bno055_hardware/install/rviz_imu_plugin/lib:/home/jg/bno055_hardware/install/imu_filter_madgwick/lib:/home/jg/bno055_hardware/install/imu_complementary_filter/lib:/home/jg/linorobot2_ws/install/micro_ros_agent/lib:/home/jg/linorobot2_ws/install/micro_ros_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/jg'), ('OLDPWD', '/home/jg/bno055_hardware/src'), ('TERM_PROGRAM_VERSION', '1.89.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-88463016-4269-471d-ab5f-fa9b64ee600d.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/jg/bno055_hardware/install:/home/jg/linorobot2_ws/install:/home/jg/sam_bot_description/install:/home/jg/turtlebot3_ws/install:/home/jg/pointcloud_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jg'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/models:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/jg/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jg/.platformio/penv/bin:/home/jg/.platformio/penv/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-0b768504e6.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_test:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/jg/bno055_hardware/build/imu_complementary_filter'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.0.52 52014 192.168.0.178 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LINOROBOT2_DEPTH_SENSOR', 'realsense'), ('PYTHONPATH', '/home/jg/bno055_hardware/build/imu_test:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:/home/jg/linorobot2_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/home/jg/linorobot2_ws/install/linorobot2_gazebo/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('LINOROBOT2_LASER_SENSOR', 'rplidar'), ('CMAKE_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble')]), 'shell': False}
+[1.301402] (-) TimerEvent: {}
+[1.306971] (imu_complementary_filter) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/complementary_filter.dir/src/complementary_filter.cpp.o\x1b[0m\n'}
+[1.307189] (imu_complementary_filter) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/complementary_filter.dir/src/complementary_filter_ros.cpp.o\x1b[0m\n'}
+[1.401551] (-) TimerEvent: {}
+[1.501909] (-) TimerEvent: {}
+[1.602219] (-) TimerEvent: {}
+[1.702552] (-) TimerEvent: {}
+[1.802879] (-) TimerEvent: {}
+[1.903211] (-) TimerEvent: {}
+[2.003492] (-) TimerEvent: {}
+[2.103833] (-) TimerEvent: {}
+[2.204135] (-) TimerEvent: {}
+[2.304469] (-) TimerEvent: {}
+[2.404820] (-) TimerEvent: {}
+[2.505125] (-) TimerEvent: {}
+[2.605463] (-) TimerEvent: {}
+[2.705780] (-) TimerEvent: {}
+[2.806131] (-) TimerEvent: {}
+[2.906479] (-) TimerEvent: {}
+[3.006824] (-) TimerEvent: {}
+[3.107144] (-) TimerEvent: {}
+[3.207461] (-) TimerEvent: {}
+[3.307789] (-) TimerEvent: {}
+[3.408127] (-) TimerEvent: {}
+[3.508470] (-) TimerEvent: {}
+[3.608827] (-) TimerEvent: {}
+[3.709175] (-) TimerEvent: {}
+[3.809517] (-) TimerEvent: {}
+[3.909845] (-) TimerEvent: {}
+[4.010194] (-) TimerEvent: {}
+[4.110543] (-) TimerEvent: {}
+[4.210872] (-) TimerEvent: {}
+[4.311216] (-) TimerEvent: {}
+[4.411574] (-) TimerEvent: {}
+[4.511925] (-) TimerEvent: {}
+[4.612255] (-) TimerEvent: {}
+[4.712572] (-) TimerEvent: {}
+[4.812905] (-) TimerEvent: {}
+[4.913191] (-) TimerEvent: {}
+[5.013520] (-) TimerEvent: {}
+[5.113866] (-) TimerEvent: {}
+[5.214192] (-) TimerEvent: {}
+[5.314532] (-) TimerEvent: {}
+[5.414887] (-) TimerEvent: {}
+[5.515215] (-) TimerEvent: {}
+[5.615538] (-) TimerEvent: {}
+[5.715888] (-) TimerEvent: {}
+[5.816235] (-) TimerEvent: {}
+[5.916604] (-) TimerEvent: {}
+[6.016905] (-) TimerEvent: {}
+[6.117181] (-) TimerEvent: {}
+[6.217521] (-) TimerEvent: {}
+[6.317850] (-) TimerEvent: {}
+[6.418207] (-) TimerEvent: {}
+[6.518524] (-) TimerEvent: {}
+[6.618866] (-) TimerEvent: {}
+[6.719259] (-) TimerEvent: {}
+[6.819625] (-) TimerEvent: {}
+[6.919969] (-) TimerEvent: {}
+[7.020290] (-) TimerEvent: {}
+[7.120605] (-) TimerEvent: {}
+[7.220945] (-) TimerEvent: {}
+[7.321220] (-) TimerEvent: {}
+[7.421539] (-) TimerEvent: {}
+[7.521862] (-) TimerEvent: {}
+[7.622172] (-) TimerEvent: {}
+[7.722492] (-) TimerEvent: {}
+[7.822816] (-) TimerEvent: {}
+[7.923166] (-) TimerEvent: {}
+[8.023499] (-) TimerEvent: {}
+[8.123836] (-) TimerEvent: {}
+[8.224176] (-) TimerEvent: {}
+[8.324547] (-) TimerEvent: {}
+[8.424854] (-) TimerEvent: {}
+[8.525157] (-) TimerEvent: {}
+[8.625506] (-) TimerEvent: {}
+[8.725823] (-) TimerEvent: {}
+[8.826166] (-) TimerEvent: {}
+[8.926506] (-) TimerEvent: {}
+[9.026840] (-) TimerEvent: {}
+[9.127183] (-) TimerEvent: {}
+[9.227519] (-) TimerEvent: {}
+[9.327865] (-) TimerEvent: {}
+[9.428198] (-) TimerEvent: {}
+[9.528544] (-) TimerEvent: {}
+[9.628848] (-) TimerEvent: {}
+[9.729192] (-) TimerEvent: {}
+[9.829537] (-) TimerEvent: {}
+[9.929871] (-) TimerEvent: {}
+[10.030218] (-) TimerEvent: {}
+[10.130533] (-) TimerEvent: {}
+[10.230858] (-) TimerEvent: {}
+[10.331211] (-) TimerEvent: {}
+[10.431567] (-) TimerEvent: {}
+[10.531929] (-) TimerEvent: {}
+[10.632302] (-) TimerEvent: {}
+[10.732669] (-) TimerEvent: {}
+[10.833078] (-) TimerEvent: {}
+[10.933424] (-) TimerEvent: {}
+[11.033784] (-) TimerEvent: {}
+[11.064514] (imu_complementary_filter) StdoutLine: {'line': b'[ 60%] \x1b[32m\x1b[1mLinking CXX shared library libcomplementary_filter.so\x1b[0m\n'}
+[11.133940] (-) TimerEvent: {}
+[11.234347] (-) TimerEvent: {}
+[11.334801] (-) TimerEvent: {}
+[11.435175] (-) TimerEvent: {}
+[11.535526] (-) TimerEvent: {}
+[11.635867] (-) TimerEvent: {}
+[11.721506] (imu_complementary_filter) StdoutLine: {'line': b'[ 60%] Built target complementary_filter\n'}
+[11.733860] (imu_complementary_filter) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding CXX object CMakeFiles/complementary_filter_node.dir/src/complementary_filter_node.cpp.o\x1b[0m\n'}
+[11.735934] (-) TimerEvent: {}
+[11.836198] (-) TimerEvent: {}
+[11.936568] (-) TimerEvent: {}
+[12.036938] (-) TimerEvent: {}
+[12.137337] (-) TimerEvent: {}
+[12.237719] (-) TimerEvent: {}
+[12.338098] (-) TimerEvent: {}
+[12.438503] (-) TimerEvent: {}
+[12.538870] (-) TimerEvent: {}
+[12.639229] (-) TimerEvent: {}
+[12.739610] (-) TimerEvent: {}
+[12.839989] (-) TimerEvent: {}
+[12.940357] (-) TimerEvent: {}
+[13.040741] (-) TimerEvent: {}
+[13.141081] (-) TimerEvent: {}
+[13.241459] (-) TimerEvent: {}
+[13.341852] (-) TimerEvent: {}
+[13.442236] (-) TimerEvent: {}
+[13.542616] (-) TimerEvent: {}
+[13.642990] (-) TimerEvent: {}
+[13.668547] (imu_complementary_filter) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable complementary_filter_node\x1b[0m\n'}
+[13.743155] (-) TimerEvent: {}
+[13.843617] (-) TimerEvent: {}
+[13.904032] (imu_complementary_filter) StdoutLine: {'line': b'[100%] Built target complementary_filter_node\n'}
+[13.911131] (imu_complementary_filter) CommandEnded: {'returncode': 0}
+[13.931628] (imu_complementary_filter) JobProgress: {'identifier': 'imu_complementary_filter', 'progress': 'install'}
+[13.936948] (imu_complementary_filter) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/jg/bno055_hardware/build/imu_complementary_filter'], 'cwd': '/home/jg/bno055_hardware/build/imu_complementary_filter', 'env': OrderedDict([('LINOROBOT2_BASE', '4wd'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jg'), ('SSH_CLIENT', '192.168.0.52 52014 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/jg/bno055_hardware/install/rviz_imu_plugin/lib:/home/jg/bno055_hardware/install/imu_filter_madgwick/lib:/home/jg/bno055_hardware/install/imu_complementary_filter/lib:/home/jg/linorobot2_ws/install/micro_ros_agent/lib:/home/jg/linorobot2_ws/install/micro_ros_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/jg'), ('OLDPWD', '/home/jg/bno055_hardware/src'), ('TERM_PROGRAM_VERSION', '1.89.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-88463016-4269-471d-ab5f-fa9b64ee600d.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/jg/bno055_hardware/install:/home/jg/linorobot2_ws/install:/home/jg/sam_bot_description/install:/home/jg/turtlebot3_ws/install:/home/jg/pointcloud_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jg'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/models:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/jg/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/jg/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jg/.platformio/penv/bin:/home/jg/.platformio/penv/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-0b768504e6.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_test:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/jg/bno055_hardware/build/imu_complementary_filter'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.0.52 52014 192.168.0.178 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LINOROBOT2_DEPTH_SENSOR', 'realsense'), ('PYTHONPATH', '/home/jg/bno055_hardware/build/imu_test:/home/jg/bno055_hardware/install/imu_test/lib/python3.10/site-packages:/home/jg/linorobot2_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/home/jg/linorobot2_ws/install/linorobot2_gazebo/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('LINOROBOT2_LASER_SENSOR', 'rplidar'), ('CMAKE_PREFIX_PATH', '/home/jg/bno055_hardware/install/imu_tools:/home/jg/bno055_hardware/install/rviz_imu_plugin:/home/jg/bno055_hardware/install/imu_filter_madgwick:/home/jg/bno055_hardware/install/imu_complementary_filter:/home/jg/linorobot2_ws/install/micro_ros_setup:/home/jg/linorobot2_ws/install/linorobot2_bringup:/home/jg/linorobot2_ws/install/micro_ros_agent:/home/jg/linorobot2_ws/install/micro_ros_msgs:/home/jg/linorobot2_ws/install/linorobot2_navigation:/home/jg/linorobot2_ws/install/linorobot2_gazebo:/home/jg/linorobot2_ws/install/linorobot2_description:/home/jg/linorobot2_ws/install/linorobot2_base:/home/jg/linorobot2_ws/install/linorobot2:/home/jg/sam_bot_description/install/sam_bot_description:/home/jg/pointcloud_ws/install/laserscan_to_pointcloud:/home/jg/bno055_hardware/install/imu_test:/opt/ros/humble')]), 'shell': False}
+[13.942211] (imu_complementary_filter) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[13.942426] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/lib/libcomplementary_filter.so\n'}
+[13.943685] (-) TimerEvent: {}
+[13.949509] (imu_complementary_filter) StdoutLine: {'line': b'-- Set runtime path of "/home/jg/bno055_hardware/install/imu_complementary_filter/lib/libcomplementary_filter.so" to ""\n'}
+[13.949694] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/lib/imu_complementary_filter/complementary_filter_node\n'}
+[13.949799] (imu_complementary_filter) StdoutLine: {'line': b'-- Set runtime path of "/home/jg/bno055_hardware/install/imu_complementary_filter/lib/imu_complementary_filter/complementary_filter_node" to ""\n'}
+[13.949906] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/include\n'}
+[13.949994] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/include/imu_complementary_filter\n'}
+[13.950079] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/include/imu_complementary_filter/complementary_filter.h\n'}
+[13.950173] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/include/imu_complementary_filter/complementary_filter_ros.h\n'}
+[13.950260] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/launch\n'}
+[13.950341] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/launch/complementary_filter.launch.py\n'}
+[13.950413] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/environment/library_path.sh\n'}
+[13.950526] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/environment/library_path.dsv\n'}
+[13.950626] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/ament_index/resource_index/package_run_dependencies/imu_complementary_filter\n'}
+[13.950692] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/ament_index/resource_index/parent_prefix_path/imu_complementary_filter\n'}
+[13.950749] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/environment/ament_prefix_path.sh\n'}
+[13.950806] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/environment/ament_prefix_path.dsv\n'}
+[13.950867] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/environment/path.sh\n'}
+[13.950925] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/environment/path.dsv\n'}
+[13.950998] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/local_setup.bash\n'}
+[13.951058] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/local_setup.sh\n'}
+[13.951117] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/local_setup.zsh\n'}
+[13.951171] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/local_setup.dsv\n'}
+[13.951225] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/package.dsv\n'}
+[13.951299] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/ament_index/resource_index/packages/imu_complementary_filter\n'}
+[13.951422] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/cmake/export_imu_complementary_filterExport.cmake\n'}
+[13.951492] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/cmake/export_imu_complementary_filterExport-noconfig.cmake\n'}
+[13.951551] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[13.951614] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[13.951674] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[13.951733] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/cmake/imu_complementary_filterConfig.cmake\n'}
+[13.951786] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/cmake/imu_complementary_filterConfig-version.cmake\n'}
+[13.951839] (imu_complementary_filter) StdoutLine: {'line': b'-- Installing: /home/jg/bno055_hardware/install/imu_complementary_filter/share/imu_complementary_filter/package.xml\n'}
+[13.953094] (imu_complementary_filter) CommandEnded: {'returncode': 0}
+[13.984861] (imu_complementary_filter) JobEnded: {'identifier': 'imu_complementary_filter', 'rc': 0}
+[13.985552] (-) EventReactorShutdown: {}
