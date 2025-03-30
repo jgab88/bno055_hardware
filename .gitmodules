@@ -1,3 +1,6 @@
 [submodule "firmware/lib/Adafruit_BNO055"]
 	path = firmware/lib/Adafruit_BNO055
 	url = https://github.com/adafruit/Adafruit_BNO055
+[submodule "firmware/lib/VL53L5CX"]
+	path = firmware/lib/VL53L5CX
+	url = https://github.com/simondlevy/VL53L5CX.git
