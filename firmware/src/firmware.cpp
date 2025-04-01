@@ -8,17 +8,25 @@
 #include <rmw_microros/rmw_microros.h>
 #include <sensor_msgs/msg/imu.h>
 #include <sensor_msgs/msg/magnetic_field.h>
+#include <sensor_msgs/msg/range.h>
 #include <nav_msgs/msg/odometry.h>
 #include <geometry_msgs/msg/twist_with_covariance_stamped.h>
 #include <std_msgs/msg/string.h>
-#include <Adafruit_BNO055.h>
 #include <SPI.h>
 #include <Arduino.h>
 #include <string.h>
 #include <std_msgs/msg/float32.h> // Sonar height message
 
+// Include our sensor interfaces
+#include "bno055_interface.h"
+#include "vl53l5cx_interface.h"
+
 #define TRIG_PIN 9  // Sonar Trigger Pin
 #define ECHO_PIN 10 // Sonar Echo Pin
+
+// VL53L5CX TOF sensor settings
+#define TOF_LPN_PIN 14   // LPN pin for the VL53L5CX (set to 0 if not used)
+#define TOF_I2C_ADDR 0x29 // Default I2C address for VL53L5CX
 
 #define LED_PIN 13
 #define RCCHECK(fn)              \
@@ -48,6 +56,7 @@
 #define ODOM_FRAME_ID "odom"
 #define BASE_FRAME_ID "base_link"
 #define IMU_FRAME_ID "imu_link"
+#define TOF_FRAME_ID "tof_link"
 
 // Encoder pins and parameters
 const int encoderPinA = 5;
@@ -71,6 +80,7 @@ rcl_publisher_t wheel_odom_publisher;
 rcl_publisher_t wheel_vel_publisher;
 rcl_publisher_t debug_publisher;
 rcl_publisher_t sonar_height_publisher;
+rcl_publisher_t tof_range_publisher;     // Publisher for VL53L5CX TOF data
 
 sensor_msgs__msg__Imu imu_msg;
 sensor_msgs__msg__MagneticField mag_msg;
@@ -78,9 +88,11 @@ nav_msgs__msg__Odometry wheel_odom_msg;
 geometry_msgs__msg__TwistWithCovarianceStamped wheel_vel_msg;
 std_msgs__msg__String debug_msg;
 std_msgs__msg__Float32 sonar_height_msg;
+sensor_msgs__msg__Range tof_range_msg;    // Message for VL53L5CX TOF data
 
 char debug_string_buffer[100];
-Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
+BNO055Interface bno; // IMU sensor interface
+VL53L5CXInterface tof(TOF_I2C_ADDR, TOF_LPN_PIN); // TOF sensor interface
 
 enum states
 {
@@ -140,6 +152,7 @@ void init_messages()
   static char odom_frame[] = ODOM_FRAME_ID;
   static char base_frame[] = BASE_FRAME_ID;
   static char imu_frame[] = IMU_FRAME_ID;
+  static char tof_frame[] = TOF_FRAME_ID;
 
   // Initialize wheel odometry message
   wheel_odom_msg.header.frame_id.data = odom_frame;
@@ -162,6 +175,14 @@ void init_messages()
   // Initialize wheel velocity message
   wheel_vel_msg.header.frame_id.data = base_frame;
   wheel_vel_msg.header.frame_id.size = strlen(base_frame);
+  
+  // Initialize TOF range message
+  tof_range_msg.header.frame_id.data = tof_frame;
+  tof_range_msg.header.frame_id.size = strlen(tof_frame);
+  tof_range_msg.radiation_type = sensor_msgs__msg__Range__INFRARED;
+  tof_range_msg.field_of_view = 0.471239; // ~27 degrees in radians
+  tof_range_msg.min_range = 0.04; // 4cm
+  tof_range_msg.max_range = 4.0;  // 4m
 
   publish_debug("Messages initialized");
 }
@@ -176,12 +197,11 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
         float height = measureSonarDistance();
         sonar_height_msg.data = height;
 
-        // Get IMU data
-        imu::Quaternion quat = bno.getQuat();
-        if (quat.w() == 0 && quat.x() == 0 && quat.y() == 0 && quat.z() == 0) {
-            publish_debug("Warning: Invalid quaternion data");
-            return;
-        }
+        // Update TOF sensor data
+        tof.update();
+        
+        // Update IMU data
+        bno.update();
 
         // Calculate encoder-based odometry
         long currentCount = encoderCount;
@@ -204,30 +224,23 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
         wheel_odom_msg.header.stamp.nanosec = nanosec;
         wheel_vel_msg.header.stamp.sec = sec;
         wheel_vel_msg.header.stamp.nanosec = nanosec;
+        tof_range_msg.header.stamp.sec = sec;
+        tof_range_msg.header.stamp.nanosec = nanosec;
 
-        // Update IMU message - manually copy quaternion values
-        imu_msg.orientation.w = quat.w();
-        imu_msg.orientation.x = quat.x();
-        imu_msg.orientation.y = quat.y();
-        imu_msg.orientation.z = quat.z();
+        // Get IMU data
+        sensor_msgs__msg__Imu imu_data = bno.getIMUData();
+        memcpy(&imu_msg.orientation, &imu_data.orientation, sizeof(imu_data.orientation));
+        memcpy(&imu_msg.angular_velocity, &imu_data.angular_velocity, sizeof(imu_data.angular_velocity));
+        memcpy(&imu_msg.linear_acceleration, &imu_data.linear_acceleration, sizeof(imu_data.linear_acceleration));
 
-        // Update angular velocity
-        imu::Vector<3> ang_vel = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-        imu_msg.angular_velocity.x = ang_vel.x();
-        imu_msg.angular_velocity.y = ang_vel.y();
-        imu_msg.angular_velocity.z = ang_vel.z();
+        // Get magnetometer data
+        sensor_msgs__msg__MagneticField mag_data = bno.getMagneticFieldData();
+        memcpy(&mag_msg.magnetic_field, &mag_data.magnetic_field, sizeof(mag_data.magnetic_field));
 
-        // Update linear acceleration
-        imu::Vector<3> lin_accel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
-        imu_msg.linear_acceleration.x = lin_accel.x();
-        imu_msg.linear_acceleration.y = lin_accel.y();
-        imu_msg.linear_acceleration.z = lin_accel.z();
-
-        // Update magnetometer message
-        imu::Vector<3> mag = bno.getVector(Adafruit_BNO055::VECTOR_MAGNETOMETER);
-        mag_msg.magnetic_field.x = mag.x();
-        mag_msg.magnetic_field.y = mag.y();
-        mag_msg.magnetic_field.z = mag.z();
+        // Get TOF data - we'll publish data from the center zone (zone 5 in 4x4 grid)
+        uint8_t center_zone = tof.getResolution() == 16 ? 5 : 28; // 5 for 4x4, 28 for 8x8
+        sensor_msgs__msg__Range tof_data = tof.getRangeData(center_zone);
+        tof_range_msg.range = tof_data.range;
 
         // Update wheel odometry message (position only)
         wheel_odom_msg.pose.pose.position.x = currentCount * METERS_PER_TICK;
@@ -246,9 +259,9 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
         wheel_vel_msg.twist.twist.linear.z = 0.0;
         
         // Copy angular velocity from IMU
-        wheel_vel_msg.twist.twist.angular.x = ang_vel.x();
-        wheel_vel_msg.twist.twist.angular.y = ang_vel.y();
-        wheel_vel_msg.twist.twist.angular.z = ang_vel.z();
+        wheel_vel_msg.twist.twist.angular.x = imu_msg.angular_velocity.x;
+        wheel_vel_msg.twist.twist.angular.y = imu_msg.angular_velocity.y;
+        wheel_vel_msg.twist.twist.angular.z = imu_msg.angular_velocity.z;
 
         // Set covariances
         // Wheel odometry position covariance (only X position is measured)
@@ -266,10 +279,11 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
 
         // Debug output
         snprintf(debug_buf, sizeof(debug_buf), 
-                "Publishing - pos: %.3f m, vel: %.3f m/s", 
+                "Publishing - pos: %.3f m, vel: %.3f m/s, sonar: %.2f m, tof: %.2f m", 
                 wheel_odom_msg.pose.pose.position.x,
                 wheel_vel_msg.twist.twist.linear.x,
-                height);
+                height,
+                tof_range_msg.range);
         publish_debug(debug_buf);
 
         // Publish all messages
@@ -296,6 +310,11 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
         rc = rcl_publish(&sonar_height_publisher, &sonar_height_msg, NULL);
         if (rc != RCL_RET_OK) {
             publish_debug("Failed to publish sonar height");
+        }
+        
+        rc = rcl_publish(&tof_range_publisher, &tof_range_msg, NULL);
+        if (rc != RCL_RET_OK) {
+            publish_debug("Failed to publish TOF range data");
         }
 
         // Update previous values
@@ -343,12 +362,19 @@ bool create_entities()
       ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
       "teensy_debug"));
 
-      // Create sonar height publisher
+  // Create sonar height publisher
   RCCHECK(rclc_publisher_init_default(
       &sonar_height_publisher,
       &node,
       ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Float32),
       "sonar/height"));
+  
+  // Create TOF range publisher
+  RCCHECK(rclc_publisher_init_default(
+      &tof_range_publisher,
+      &node,
+      ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Range),
+      "tof/range"));
 
   // Create timer
   const unsigned int timer_timeout = 100;
@@ -409,6 +435,13 @@ void destroy_entities() {
         publish_debug("Failed to cleanup sonar publisher");
         delay(10);
     }
+    
+    // Clean up TOF publisher
+    rc = rcl_publisher_fini(&tof_range_publisher, &node);
+    if (rc != RCL_RET_OK) {
+        publish_debug("Failed to cleanup TOF publisher");
+        delay(10);
+    }
 
     // Final debug message before we destroy debug publisher
     publish_debug("All other publishers cleaned up, destroying debug publisher now");
@@ -439,29 +472,27 @@ void setup()
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
+  // Initialize I2C buses with different clock speeds
+  // Wire for BNO055 on default I2C pins (SCL:19, SDA:18)
+  Wire.begin();
+  Wire.setClock(400000);
+  
+  // Wire1 for VL53L5CX on SCL2/SDA2 pins (SCL2:16, SDA2:17)
+  // Use a slower clock speed for the VL53L5CX to ensure reliable communication
+  Wire1.begin();
+  Wire1.setClock(100000); // 100kHz
+
   state = WAITING_AGENT;
 
-  // Initialize BNO055
-  if (!bno.begin())
-  {
-    // We can't use publish_debug here as entities aren't created yet
-    while (1)
-    {
-      digitalWrite(LED_PIN, !digitalRead(LED_PIN));
-      delay(100);
-    }
-  }
+  // Initialize BNO055 IMU
+  bno.init();
 
-  // Basic calibration check
-  uint8_t system, gyro, accel, mag = 0;
-  bno.getCalibration(&system, &gyro, &accel, &mag);
+  // Initialize VL53L5CX TOF sensor
+  tof.init();
 
-  // Wait for basic calibration
-  while (system < 1 && gyro < 1 && accel < 1 && mag < 1)
-  {
-    bno.getCalibration(&system, &gyro, &accel, &mag);
-    delay(100);
-  }
+  // Basic calibration check for IMU
+  Serial.println("Waiting for IMU calibration...");
+  delay(1000); // Give the IMU some time to start up
 }
 
 void loop()
